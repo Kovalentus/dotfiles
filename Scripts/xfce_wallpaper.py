@@ -16,7 +16,7 @@ if __name__ == '__main__':
         choices.append(str(i))
         print
 
-    print('\nPlease choose number or (q) for quit')
+    print('\nPlease choose number, (t) for transparent or (q) for quit')
 
     acceptedInp = False
     while acceptedInp == False:
@@ -24,7 +24,10 @@ if __name__ == '__main__':
         if usrInp in choices:
             chosenWallpaper = folder + wallpapers[int(usrInp)]
             acceptedInp = True
-        elif  usrInp == 'q':
+        elif usrInp == 't':
+            chosenWallpaper = ""
+            acceptedInp = True
+        elif usrInp == 'q':
             exit()
         else:
             print('Not a valid choice, please try again or (q) for exit')
