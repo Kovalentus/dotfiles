@@ -47,8 +47,8 @@ font-5 = Noto:pixelsize=12:weight=bold;2
 fixed-center = true
 
 modules-left = i3
-modules-center = time spotify
-modules-right = temperature date volume powermenu
+modules-center = spotify date time
+modules-right = volume temperature powermenu
 
 
 [module/xwindow]
@@ -134,7 +134,6 @@ label-padding-left = 4
 type = internal/date
 interval = 1.0
 label-font = 0
-label-padding-right = 5
 time = "%H:%M"
 label = "%time%"
 label-foreground = ${colors.foreground}
@@ -148,6 +147,8 @@ format-volume = <ramp-volume> <label-volume>
 format-voulme-padding = 0
 format-volume-foreground = ${colors.foreground-alt}
 label-volume = %percentage%
+ramp-volume-padding-left = 75
+label-volume-padding-right = 3
 
 ;format-muted-prefix = " "
 format-muted = <label-muted>
@@ -162,6 +163,7 @@ ramp-volume-2 = 
 ramp-headphones-0 = 
 ramp-headphones-1 = 
 ramp-headphones-2 = 
+
 
 [module/spotify]
 type = custom/script
@@ -213,6 +215,7 @@ type = custom/menu
 
 format-spacing = 1
 format-padding = 5
+always-centered = true
 
 label-open = 
 label-open-foreground = ${colors.foreground-alt}
