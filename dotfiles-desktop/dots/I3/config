@@ -108,18 +108,28 @@ bindsym Mod1+minus scratchpad show
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
-set $ws1 " Firefox"
-set $ws2 " Terminal"
-set $ws3 " Spacemacs"
-set $ws4 " Vim"
-set $ws5 " Steam"
-set $ws6 "6 |"
-set $ws7 "7 |"
-set $ws8 "8 |"
-set $ws9 "9 |"
-set $ws10 " Music"
+set $ws1 "1: Chrome"
+set $ws2 "2: Terminal"
+set $ws3 "3: Spacemacs"
+set $ws4 "4: Vim"
+set $ws5 "5: 5"
+set $ws6 "6: 6"
+set $ws7 "7: 7"
+set $ws8 "8: 8"
+set $ws9 "9: 9"
+set $ws10 "10: Music"
 
 
+# set $ws1 " Chrome"
+# set $ws2 " Terminal"
+# set $ws3 " Spacemacs"
+# set $ws4 " Vim"
+# set $ws5 " Steam"
+# set $ws6 "6 |"
+# set $ws7 "7 |"
+# set $ws8 "8 |"
+# set $ws9 "9 |"
+# set $ws10 " Music"
 # switch to workspace
 bindsym Mod1+1 workspace $ws1
 bindsym Mod1+2 workspace $ws2
@@ -199,18 +209,18 @@ set $urgent-bg-color     #8fa1b3
 set $text-color          #FFFFFF
 
 
-bar {
-        status_command i3blocks -c ~/.i3/i3blocks.conf
-        position top
-        colors {
-	     	       background $bg-color
-	             separator #FFFFFF
-        		   #                  border             background         text
-    		       focused_workspace  $bg-color          $bg-color          $text-color
-		           inactive_workspace $inactive-bg-color $inactive-bg-color $inactive-text-color
-		           urgent_workspace   $urgent-bg-color   $urgent-bg-color   $text-color
-    }
-}
+# bar {
+#         status_command i3blocks -c ~/.i3/i3blocks.conf
+#         position top
+#         colors {
+# 	     	       background $bg-color
+# 	             separator #FFFFFF
+#         		   #                  border             background         text
+#     		       focused_workspace  $bg-color          $bg-color          $text-color
+# 		           inactive_workspace $inactive-bg-color $inactive-bg-color $inactive-text-color
+# 		           urgent_workspace   $urgent-bg-color   $urgent-bg-color   $text-color
+#     }
+# }
 
 exec compton
 exec setxkbmap -layout se,us -option caps:escape -option grp:rshift_toggle
@@ -221,6 +231,7 @@ exec --no-startup-id wal -R
 exec feh --bg-scale /home/angel/Pictures/TerminalWallpapers/SpaceMountains.jpg
 exec emacs --daemon
 exec redshift
+exec_always --no-startup-id ~/.i3/polybar.sh &
 
 
 for_window [class="^.*"] border pixel 0
@@ -269,7 +280,7 @@ bindsym Mod1+Shift+p      exec xfce4-terminal -e /home/angel/Documents/Scripts/U
 
 # Numpad quickstart
 
-bindsym  Mod1+Mod2+KP_1      exec --no-startup-id firefox; workspace $ws1
+bindsym  Mod1+Mod2+KP_1      exec --no-startup-id google-chrome; workspace $ws1
 bindsym  Mod1+Mod2+KP_2      exec --no-startup-id thunar; workspace $ws2
 bindsym  Mod1+Mod2+KP_3      exec --no-startup-id emacs; workspace $ws3
 bindsym  Mod1+Mod2+KP_4      exec --no-startup-id xfce4-terminal -e vim; workspace $ws4
@@ -278,3 +289,23 @@ bindsym  Mod1+Mod2+KP_9      exec --no-startup-id rhythmbox; workspace $ws10
 bindsym  Mod1+Mod2+KP_0      exec --no-startup-id spotify; workspace $ws10
 
 for_window [class="Spotify"] move to workspace $ws10
+
+# Set colors from Xresources
+# Change 'color7' and 'color2' to whatever colors you want i3 to use
+# from the generated scheme.
+# NOTE: The '#f0f0f0' in the lines below is the color i3 will use if
+# it fails to get colors from Xresources.
+# set_from_resource $fg i3wm.color7 #f0f0f0
+# set_from_resource $bg i3wm.color2 #f0f0f0
+
+# # class                 border  backgr. text indicator child_border
+# client.focused          $bg     $bg     $fg  $bg       $bg
+# client.focused_inactive $bg     $bg     $fg  $bg       $bg
+# client.unfocused        $bg     $bg     $fg  $bg       $bg
+# client.urgent           $bg     $bg     $fg  $bg       $bg
+# client.placeholder      $bg     $bg     $fg  $bg       $bg
+
+# client.background       $bg
+
+# PROTIP: You can also dynamically set dmenu's colors this way:
+# bindsym $mod+d exec dmenu_run -nb "$fg" -nf "$bg" -sb "$bg" -sf "$fg"
