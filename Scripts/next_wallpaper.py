@@ -2,16 +2,17 @@ import os
 from subprocess import call
 
 if __name__ == '__main__':
-    folder = '/home/angel/Pictures/TerminalWallpapers/'
+    home = os.environ['HOME']
+    folder = home + '/Pictures/TerminalWallpapers/'
     fileformats = ['.jpg', '.png']
     wallpapers = list(filter(lambda x: x[-4:] in fileformats, os.listdir(folder)))
 
     currentwallpaper = ''
 
-    with open('/home/angel/Documents/Scripts/current_wallpaper.txt') as db:
+    with open(home + '/Documents/Scripts/current_wallpaper.txt') as db:
         currentwallpaper = db.read().strip()
 
-    conffile = '/home/angel/.config/xfce4/terminal/terminalrc'
+    conffile = home + '/.config/xfce4/terminal/terminalrc'
     fileLines = []
     with open(conffile, 'r') as conf:
         for line in conf:
@@ -35,4 +36,4 @@ if __name__ == '__main__':
     if nextwallpaper == currentwallpaper:
         currentwallpaper = wallpapers[0]
 
-    call(['/home/angel/Documents/Scripts/xfce_changebg.sh', folder + nextwallpaper])
+    call([home + '/Documents/Scripts/xfce_changebg.sh', folder + nextwallpaper])

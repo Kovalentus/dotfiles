@@ -73,7 +73,7 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put thehttps://raw.githubusercontent.com/tarao/elisp/master/linum%2B.el
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '(ws-butler sublimity google-this impatient-mode evil-quickscope evil-terminal-cursor-changer theming)
+   dotspacemacs-additional-packages '(ws-butler sublimity google-this impatient-mode evil-quickscope evil-terminal-cursor-changer theming xresources-theme)
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
@@ -145,7 +145,8 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(flatland
+   dotspacemacs-themes '(xresources
+                         flatland
                          darktooth
                          gruber-darker
                          spacemacs-dark
@@ -339,7 +340,6 @@ before packages are loaded. If you are unsure, you should try in setting them in
   ;;       (default :background "#1f1f22")
   ;;      )
   ;; ))
-  (spacemacs/enable-transparency)
   ;; (defvar use-default-input-method t)
   ;; (make-variable-buffer-local 'use-default-input-method)
   ;; (defun activate-default-input-method ()
@@ -425,6 +425,17 @@ you should place your code here."
   ;; (setq default-input-method "swedish-keyboard")
   ;; (set-input-method "swedish-keyboard") ; _
   ;; keycodes 34 47 48
+  (enable-theme 'xresources)
+  (unless (display-graphic-p)
+    (global-hl-line-mode -1)
+    )
+  (if (daemonp)
+  (add-hook 'after-make-frame-functions
+            (lambda (frame)
+              (with-selected-frame frame
+                (enable-theme 'xresources))))
+  (enable-theme 'xresources))
+  (spacemacs/enable-transparency)
 )
 ;; Do Not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
@@ -433,6 +444,8 @@ you should place your code here."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(ansi-color-names-vector
+   ["#0a0814" "#f2241f" "#67b11d" "#b1951d" "#4f97d7" "#a31db1" "#28def0" "#b2b2b2"])
  '(evil-want-Y-yank-to-eol t)
  '(global-linum-mode t)
  '(package-selected-packages

@@ -22,7 +22,7 @@ alert = ${xrdb:color3:#222}
 monitor =
 bottom = false
 width = 100%
-height = 34
+height = 40
 offset-x = 0
 offset-y = 0
 background = ${colors.background}
@@ -37,18 +37,22 @@ margin-right = 5
 module-margin-left = 0
 module-margin-right = 0
 
-font-0 = Noto:pixelsize=12;2
+; font-0 = Noto:pixelsize=16;2
+font-0 = Playfair Display:pixelsize=16:weight=bold;2
+; font-0 = SFNS Display:pixelsize=16;2
+; font-0 = SFNS Display:pixelsize=16:weight=bold;2
 font-1 = Font Awesome 5 Free:pixelsize=13;3
 font-2 = Material Icons:pixelsize=13;3
 font-3 = SpaceMono Nerd Font Mono:pixelsize=20;5
 font-4 = Weather Icons:size=16;4
-font-5 = Noto:pixelsize=12:weight=bold;2
+font-5 = Noto:pixelsize=16;2
+font-6 = SFNS Display:pixelsize=16;2
 
 fixed-center = true
 
 modules-left = i3
 modules-center = spotify date time
-modules-right = volume temperature powermenu
+modules-right = volume temperature0 temperature1 powermenu
 
 
 [module/xwindow]
@@ -146,6 +150,7 @@ type = internal/volume
 format-volume = <ramp-volume> <label-volume>
 format-voulme-padding = 0
 format-volume-foreground = ${colors.foreground-alt}
+; label-volume-font = 6
 label-volume = %percentage%
 ramp-volume-padding-left = 75
 label-volume-padding-right = 3
@@ -156,7 +161,7 @@ format-muted-foreground = ${colors.foreground-alt}
 label-muted = "mute"
 format-muted-padding = 4
 
-ramp-volume-font = 1
+ramp-volume-font = 0
 ramp-volume-0 = 
 ramp-volume-1 = 
 ramp-volume-2 = 
@@ -170,13 +175,39 @@ type = custom/script
 interval = 1
 format-prefix = " "
 format = <label>
-exec = python ~/.config/polybar/scripts/spotify.py
+exec = python3 ~/.config/polybar/scripts/spotify.py
+click-left = playerctl play-pause
+scroll-up = playerctl next
+scroll-down = playerctl previous
 format-underline = ${colors.foreground}
 
-[module/temperature]
+[module/temperature0]
 type = internal/temperature
 interval = 0.5
 hwmon-path = /sys/devices/platform/coretemp.0/hwmon/hwmon0/temp1_input
+warn-temperature = 60
+
+format = <ramp> <label>
+; label-font = 6
+format-warn = <ramp>  <label-warn>
+
+label = %temperature%
+label-foreground = ${colors.foreground-alt}
+label-warn = %temperature%
+label-warn-foreground = ${colors.alert}
+
+ramp-font = 1
+ramp-0 = 
+ramp-1 = 
+ramp-2 = 
+ramp-3 = 
+
+ramp-foreground = ${colors.foreground-alt}
+
+[module/temperature1]
+type = internal/temperature
+interval = 0.5
+hwmon-path = /sys/devices/platform/coretemp.0/hwmon/hwmon1/temp1_input
 warn-temperature = 60
 
 format = <ramp> <label>
@@ -224,12 +255,12 @@ label-close-foreground = ${colors.foreground}
 label-separator = " "
 label-separator-foreground = ${colors.foreground-alt}
 
-menu-0-0 = 
-menu-0-0-exec = reboot
-menu-0-1 = 
-menu-0-1-exec = systemctl poweroff
-menu-0-2 = 
-menu-0-2-exec = i3-msg exit
+menu-0-0 = 
+menu-0-0-exec = i3-msg exit
+menu-0-1 = 
+menu-0-1-exec = reboot
+menu-0-2 = 
+menu-0-2-exec = systemctl poweroff
 
 [settings]
 screenchange-reload = true
@@ -241,5 +272,3 @@ screenchange-reload = true
 [global/wm]
 margin-top = 5
 margin-bottom = 5
-
-; vim:ft=dosini

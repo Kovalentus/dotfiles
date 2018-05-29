@@ -2,7 +2,8 @@ import os
 from subprocess import call
 
 if __name__ == '__main__':
-    folder = '/home/angel/Pictures/TerminalWallpapers/'
+    home = os.environ['HOME']
+    folder = home + '/Pictures/TerminalWallpapers/'
     fileformats = ['.jpg', '.png']
     wallpapers = sorted(list(\
                  filter(lambda x: x[-4:] in fileformats, os.listdir(folder))\
@@ -32,4 +33,4 @@ if __name__ == '__main__':
         else:
             print('Not a valid choice, please try again or (q) for exit')
 
-    call(['/home/angel/Documents/Scripts/xfce_changebg.sh', chosenWallpaper])
+    call([home + '/Documents/Scripts/xfce_changebg.sh', chosenWallpaper])
