@@ -22,7 +22,7 @@ alert = ${xrdb:color3:#222}
 monitor =
 bottom = false
 width = 100%
-height = 40
+height = 30
 offset-x = 0
 offset-y = 0
 background = ${colors.background}
@@ -53,6 +53,12 @@ fixed-center = true
 modules-left = i3
 modules-center = spotify date time
 modules-right = volume temperature0 temperature1 powermenu
+
+tray-position = right
+override-direct = true
+wm-restack = i3
+; tray-transparent = true
+tray-background = ${colors.background}
 
 
 [module/xwindow]
@@ -245,7 +251,7 @@ ramp-2 = 
 type = custom/menu
 
 format-spacing = 1
-format-padding = 5
+format-padding = 3
 always-centered = true
 
 label-open = 
