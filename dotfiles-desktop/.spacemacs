@@ -75,7 +75,7 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put thehttps://raw.githubusercontent.com/tarao/elisp/master/linum%2B.el
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '(ws-butler sublimity google-this impatient-mode evil-quickscope evil-terminal-cursor-changer theming xresources-theme color rjsx-mode doom-themes)
+   dotspacemacs-additional-packages '(ws-butler sublimity google-this impatient-mode evil-quickscope theming xresources-theme color rjsx-mode doom-themes)
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
@@ -107,7 +107,7 @@ values."
    dotspacemacs-elpa-https nil
    ;; Maximum allowed time in seconds to contact an ELPA repository.
    dotspacemacs-elpa-timeout 5
-   dotspacemacs-mode-line-theme 'vim-powerline
+   dotspacemacs-mode-line-theme 'spacemacs
    ;; If non nil then spacemacs will check for updates at startup
    ;; when the current branch is not `develop'. Note that checking for
    ;; new versions works via git commands, thus it calls GitHub services
@@ -427,46 +427,24 @@ you should place your code here."
   ;; For googling directly through emacs via firefox
   (global-set-key (kbd "C-x g") 'google-this-mode-submap)
   (google-this-mode 1)
-  (unless (display-graphic-p)
-    (require 'evil-terminal-cursor-changer)
-    (evil-terminal-cursor-changer-activate) ; or (etcc-on)
-    )
-  (setq evil-motion-state-cursor 'box)  ; █
-  (setq evil-visual-state-cursor 'box)  ; █
-  (setq evil-normal-state-cursor 'box)  ; █
-  (setq evil-insert-state-cursor 'bar)  ; ⎸
-  (setq evil-emacs-state-cursor  'hbar) ; _
-  ;; (setq default-input-method "swedish-keyboard")
-  ;; (set-input-method "swedish-keyboard") ; _
-  ;; keycodes 34 47 48
+  (spacemacs/toggle-camel-case-motion-globally-on)
+  (spacemacs/toggle-which-key-off)
+  (spacemacs/toggle-highlight-indentation-current-column-on)
+  (add-to-list 'auto-mode-alist '("\\.js\\'" . rjsx-mode))
+  ;; (setq evil-motion-state-cursor 'box)  ; █
+  ;; (setq evil-visual-state-cursor 'box)  ; █
+  ;; (setq evil-normal-state-cursor 'box)  ; █
+  ;; (setq evil-insert-state-cursor 'bar)  ; ⎸
+  ;; (setq evil-emacs-state-cursor  'hbar) ; _
   (unless (display-graphic-p)
     (evil-leader/set-key
       "q q" 'spacemacs/frame-killer)
     (set-face-background 'default nil)
-    ;; (set-face-attribute 'region nil :background "dark slate gray" :foreground "color-172")
-    )
-  (require 'color)
-  ;;Company mode dropdown
-  (let ((bg (face-attribute 'default :background)))
-    (custom-set-faces
-     `(company-tooltip ((t (:inherit default :background ,(color-lighten-name bg 2)))))
-     `(company-scrollbar-bg ((t (:background ,(color-lighten-name bg 10)))))
-     `(company-scrollbar-fg ((t (:background ,(color-lighten-name bg 5)))))
-     `(company-tooltip-selection ((t (:inherit font-lock-function-name-face))))
-     `(company-tooltip-common ((t (:inherit font-lock-constant-face)))))
     )
 
   ;; Theme customization
-  (require 'color)
-  (set-face-foreground 'font-lock-string-face "LightSteelBlue")
-  ;; (set-face-foreground 'js2-external-variable "OrangeRed")
-  ;; (set-face-foreground 'rjsx-attr (color-darken-name "LightSteelBlue" 30))
-  ;; (set-face-foreground 'font-lock-function-name-face (color-darken-name (face-foreground 'font-lock-keyword-face) 10))
-  (global-hl-line-mode nil)
-  (set-face-foreground 'linum "orange");; mode line time stamp
 
   (defun set-hl-line-color-based-on-theme ()
-    (require 'color)
     "Sets the hl-line face to have no foreground and a background
     that is 5% lighter than the default face's background."
     (set-face-attribute 'hl-line nil
@@ -474,7 +452,6 @@ you should place your code here."
                         :background (color-lighten-name (face-background 'default) 5)))
 
   (defun set-terminal-colors ()
-    (enable-theme 'xresources)
     (set-face-foreground 'font-lock-variable-name-face "color-222")
     (set-face-foreground 'font-lock-constant-face "color-172")
     (set-face-foreground 'font-lock-string-face "brightyellow")
@@ -484,16 +461,32 @@ you should place your code here."
     (set-face-foreground 'font-lock-function-name-face "brightred")
     ;; (set-face-foreground 'font-lock-builtin-face "color-172")
     (set-face-foreground 'font-lock-type-face "color-202")
-    (set-face-foreground 'font-lock-type-face "color-202")
-    (set-face-foreground 'js2-function-param "brightgreen")
+    ;; (set-face-foreground 'js2-function-param "brightgreen")
     )
-  (if (daemonp)
-      (set-terminal-colors)
-  )
-  (set-hl-line-color-based-on-theme)
-  (spacemacs/enable-transparency)
+
+  (if (daemonp) (load-theme 'xresources t))
+  (if (daemonp) (set-terminal-colors))
+  (if (daemonp) (global-hl-line-mode -1))
+  (if (daemonp) (global-hl-line-mode -1))
+
+  (unless (daemonp)
+    (spacemacs/enable-transparency)
+    (require 'color)
+    (set-hl-line-color-based-on-theme)
+    (set-face-foreground 'font-lock-string-face "LightSteelBlue")
+    (global-hl-line-mode nil)
+    (set-face-foreground 'linum "orange")
+    ;;Company mode dropdown
+    (let ((bg (face-attribute 'default :background)))
+      (custom-set-faces
+       `(company-tooltip ((t (:inherit default :background ,(color-lighten-name bg 2)))))
+       `(company-scrollbar-bg ((t (:background ,(color-lighten-name bg 10)))))
+       `(company-scrollbar-fg ((t (:background ,(color-lighten-name bg 5)))))
+       `(company-tooltip-selection ((t (:inherit font-lock-function-name-face))))
+       `(company-tooltip-common ((t (:inherit font-lock-constant-face)))))
+      )
+    )
   ;; setup files ending in “.js” to open in js2-mode
-  (add-to-list 'auto-mode-alist '("\\.js\\'" . rjsx-mode))
 )
 ;; Do Not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
@@ -534,45 +527,16 @@ This function is called at the very end of Spacemacs initialization."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ansi-color-faces-vector
-   [default bold shadow italic underline bold bold-italic bold])
  '(ansi-color-names-vector
    ["#0a0814" "#f2241f" "#67b11d" "#b1951d" "#4f97d7" "#a31db1" "#28def0" "#b2b2b2"])
- '(ansi-term-color-vector
-   [unspecified "#1F1611" "#660000" "#144212" "#EFC232" "#5798AE" "#BE73FD" "#93C1BC" "#E6E1DC"])
  '(custom-safe-themes
    '("065efdd71e6d1502877fd5621b984cded01717930639ded0e569e1724d058af8" default))
  '(evil-want-Y-yank-to-eol t)
- '(fci-rule-character-color "#452E2E")
- '(fci-rule-color "#452E2E" t)
  '(global-linum-mode t)
- '(nrepl-message-colors
-   '("#CC9393" "#DFAF8F" "#F0DFAF" "#7F9F7F" "#BFEBBF" "#93E0E3" "#94BFF3" "#DC8CC3"))
  '(package-selected-packages
-   '(doom-themes treemacs-projectile treemacs-evil treemacs mmm-mode markdown-toc markdown-mode gh-md evil-terminal-cursor-changer vimrc-mode dactyl-mode csv-mode phpunit phpcbf php-extras php-auto-yasnippets drupal-mode php-mode typescript-mode skewer-mode json-snatcher json-reformat multiple-cursors js2-mode simple-httpd haml-mode fringe-helper git-gutter+ git-gutter pos-tip flycheck magit magit-popup git-commit ghub let-alist with-editor autothemer web-completion-data dash-functional tern company inf-ruby yasnippet anaconda-mode pythonic auto-complete nlinum-relative nlinum evil-quickscope sublimity impatient-mode htmlize google-this conda zenburn-theme zen-and-art-theme yapfify xterm-color xkcd ws-butler winum white-sand-theme which-key wgrep web-mode web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package unfill underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme toxi-theme toc-org tide tao-theme tangotango-theme tango-plus-theme tango-2-theme tagedit sunny-day-theme sublime-themes subatomic256-theme subatomic-theme sql-indent spaceline spacegray-theme soothe-theme solarized-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme smex smeargle slim-mode shell-pop seti-theme scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe reverse-theme restart-emacs request rebecca-theme rbenv rake rainbow-delimiters railscasts-theme pyvenv pytest pyenv-mode py-isort purple-haze-theme pug-mode professional-theme popwin planet-theme pip-requirements phoenix-dark-pink-theme phoenix-dark-mono-theme persp-mode paradox orgit organic-green-theme org-bullets open-junk-file omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme noctilux-theme neotree naquadah-theme mwim mustang-theme multi-term move-text monokai-theme monochrome-theme molokai-theme moe-theme minitest minimal-theme material-theme majapahit-theme magit-gitflow madhat2r-theme macrostep lush-theme lorem-ipsum livid-mode live-py-mode linum-relative link-hint light-soap-theme less-css-mode json-mode js2-refactor js-doc jbeans-theme jazz-theme ivy-hydra ir-black-theme inkpot-theme indent-guide hy-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation heroku-theme hemisu-theme helm-make hc-zenburn-theme gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme google-translate golden-ratio gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ ggtags gandalf-theme fuzzy flycheck-pos-tip flx-ido flatui-theme flatland-theme fill-column-indicator farmhouse-theme fancy-battery eyebrowse expand-region exotica-theme exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-commentary evil-args evil-anzu eval-sexp-fu espresso-theme eshell-z eshell-prompt-extras esh-help emmet-mode elisp-slime-nav dumb-jump dracula-theme django-theme disaster diminish diff-hl define-word darktooth-theme darkokai-theme darkmine-theme darkburn-theme dakrone-theme cython-mode cyberpunk-theme counsel-projectile company-web company-tern company-statistics company-c-headers company-anaconda column-enforce-mode color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized coffee-mode cmake-mode clues-theme clean-aindent-mode clang-format chruby cherry-blossom-theme busybee-theme bundler bubbleberry-theme birds-of-paradise-plus-theme badwolf-theme auto-yasnippet auto-highlight-symbol auto-compile apropospriate-theme anti-zenburn-theme ample-zen-theme ample-theme alect-themes aggressive-indent afternoon-theme adaptive-wrap ace-window ace-link ac-ispell))
+   '(typit mmt sudoku pacmacs 2048-game treemacs-projectile treemacs-evil treemacs mmm-mode markdown-toc markdown-mode gh-md evil-terminal-cursor-changer vimrc-mode dactyl-mode csv-mode phpunit phpcbf php-extras php-auto-yasnippets drupal-mode php-mode typescript-mode skewer-mode json-snatcher json-reformat multiple-cursors js2-mode simple-httpd haml-mode fringe-helper git-gutter+ git-gutter pos-tip flycheck magit magit-popup git-commit ghub let-alist with-editor autothemer web-completion-data dash-functional tern company inf-ruby yasnippet anaconda-mode pythonic auto-complete nlinum-relative nlinum evil-quickscope sublimity impatient-mode htmlize google-this conda zenburn-theme zen-and-art-theme yapfify xterm-color xkcd ws-butler winum white-sand-theme which-key wgrep web-mode web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package unfill underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme toxi-theme toc-org tide tao-theme tangotango-theme tango-plus-theme tango-2-theme tagedit sunny-day-theme sublime-themes subatomic256-theme subatomic-theme sql-indent spaceline spacegray-theme soothe-theme solarized-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme smex smeargle slim-mode shell-pop seti-theme scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe reverse-theme restart-emacs request rebecca-theme rbenv rake rainbow-delimiters railscasts-theme pyvenv pytest pyenv-mode py-isort purple-haze-theme pug-mode professional-theme popwin planet-theme pip-requirements phoenix-dark-pink-theme phoenix-dark-mono-theme persp-mode paradox orgit organic-green-theme org-bullets open-junk-file omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme noctilux-theme neotree naquadah-theme mwim mustang-theme multi-term move-text monokai-theme monochrome-theme molokai-theme moe-theme minitest minimal-theme material-theme majapahit-theme magit-gitflow madhat2r-theme macrostep lush-theme lorem-ipsum livid-mode live-py-mode linum-relative link-hint light-soap-theme less-css-mode json-mode js2-refactor js-doc jbeans-theme jazz-theme ivy-hydra ir-black-theme inkpot-theme indent-guide hy-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation heroku-theme hemisu-theme helm-make hc-zenburn-theme gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme google-translate golden-ratio gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ ggtags gandalf-theme fuzzy flycheck-pos-tip flx-ido flatui-theme flatland-theme fill-column-indicator farmhouse-theme fancy-battery eyebrowse expand-region exotica-theme exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-commentary evil-args evil-anzu eval-sexp-fu espresso-theme eshell-z eshell-prompt-extras esh-help emmet-mode elisp-slime-nav dumb-jump dracula-theme django-theme disaster diminish diff-hl define-word darktooth-theme darkokai-theme darkmine-theme darkburn-theme dakrone-theme cython-mode cyberpunk-theme counsel-projectile company-web company-tern company-statistics company-c-headers company-anaconda column-enforce-mode color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized coffee-mode cmake-mode clues-theme clean-aindent-mode clang-format chruby cherry-blossom-theme busybee-theme bundler bubbleberry-theme birds-of-paradise-plus-theme badwolf-theme auto-yasnippet auto-highlight-symbol auto-compile apropospriate-theme anti-zenburn-theme ample-zen-theme ample-theme alect-themes aggressive-indent afternoon-theme adaptive-wrap ace-window ace-link ac-ispell))
  '(pos-tip-background-color "#36473A")
- '(pos-tip-foreground-color "#FFFFC8")
- '(vc-annotate-background nil)
- '(vc-annotate-color-map
-   '((20 . "#dc322f")
-     (40 . "#cb4b16")
-     (60 . "#b58900")
-     (80 . "#859900")
-     (100 . "#2aa198")
-     (120 . "#268bd2")
-     (140 . "#d33682")
-     (160 . "#6c71c4")
-     (180 . "#dc322f")
-     (200 . "#cb4b16")
-     (220 . "#b58900")
-     (240 . "#859900")
-     (260 . "#2aa198")
-     (280 . "#268bd2")
-     (300 . "#d33682")
-     (320 . "#6c71c4")
-     (340 . "#dc322f")
-     (360 . "#cb4b16")))
- '(vc-annotate-very-old-color nil))
+ '(pos-tip-foreground-color "#FFFFC8"))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
