@@ -431,19 +431,9 @@ you should place your code here."
   (spacemacs/toggle-which-key-off)
   (spacemacs/toggle-highlight-indentation-current-column-on)
   (add-to-list 'auto-mode-alist '("\\.js\\'" . rjsx-mode))
-  ;; (setq evil-motion-state-cursor 'box)  ; █
-  ;; (setq evil-visual-state-cursor 'box)  ; █
-  ;; (setq evil-normal-state-cursor 'box)  ; █
-  ;; (setq evil-insert-state-cursor 'bar)  ; ⎸
-  ;; (setq evil-emacs-state-cursor  'hbar) ; _
-  (unless (display-graphic-p)
-    (evil-leader/set-key
-      "q q" 'spacemacs/frame-killer)
-    (set-face-background 'default nil)
-    )
-
   ;; Theme customization
 
+  (set-face-foreground 'linum "orange")
   (defun set-hl-line-color-based-on-theme ()
     "Sets the hl-line face to have no foreground and a background
     that is 5% lighter than the default face's background."
@@ -454,7 +444,7 @@ you should place your code here."
   (defun set-terminal-colors ()
     (set-face-foreground 'font-lock-variable-name-face "color-222")
     (set-face-foreground 'font-lock-constant-face "color-172")
-    (set-face-foreground 'font-lock-string-face "brightyellow")
+   (set-face-foreground 'font-lock-string-face "brightyellow")
     (set-face-background 'sp-show-pair-match-face "brightblack")
     (set-face-attribute 'region nil :background "white" :foreground "brightblack")
     ;; (set-face-foreground 'font-lock-comment-face "color-240")
@@ -462,20 +452,28 @@ you should place your code here."
     ;; (set-face-foreground 'font-lock-builtin-face "color-172")
     (set-face-foreground 'font-lock-type-face "color-202")
     ;; (set-face-foreground 'js2-function-param "brightgreen")
+    (set-face-background 'default "unspecified-bg")
     )
 
-  (if (daemonp) (load-theme 'xresources t))
   (if (daemonp) (set-terminal-colors))
   (if (daemonp) (global-hl-line-mode -1))
+  (if (daemonp) (evil-leader/set-key
+                  "q q" 'spacemacs/frame-killer))
+
   (if (daemonp) (global-hl-line-mode -1))
+
+  (if (daemonp) (setq evil-motion-state-cursor 'box)) ; █
+  (if (daemonp) (setq evil-visual-state-cursor 'box)) ; █
+  (if (daemonp) (setq evil-normal-state-cursor 'box)) ; █
+  (if (daemonp) (setq evil-insert-state-cursor 'bar)) ; ⎸
+  (if (daemonp) (setq evil-emacs-state-cursor  'hbar)) ; _
 
   (unless (daemonp)
     (spacemacs/enable-transparency)
     (require 'color)
     (set-hl-line-color-based-on-theme)
-    (set-face-foreground 'font-lock-string-face "LightSteelBlue")
+    ;; (set-face-foreground 'font-lock-string-face "LightSteelBlue")
     (global-hl-line-mode nil)
-    (set-face-foreground 'linum "orange")
     ;;Company mode dropdown
     (let ((bg (face-attribute 'default :background)))
       (custom-set-faces
@@ -486,7 +484,11 @@ you should place your code here."
        `(company-tooltip-common ((t (:inherit font-lock-constant-face)))))
       )
     )
-  ;; setup files ending in “.js” to open in js2-mode
+  ;; setu
+  ;; (unless (display-graphic-p)
+  ;;   (evil-leader/set-key
+  ;;     "q q" 'spacemacs/frame-killer)
+  ;;   )
 )
 ;; Do Not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
