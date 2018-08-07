@@ -23,25 +23,24 @@ monitor =
 bottom = false
 width = 100%
 height = 30
-offset-x = 0
-offset-y = 0
+offset-x =
+offset-y =
 background = ${colors.background}
 foreground = ${colors.foreground}
-
 underline-size = 2
 underline-color = ${colors.foreground}
 
-padding-left = 0
-padding-right = 0
+padding-left = 45
+padding-right = 50
 margin-right = 5
 module-margin-left = 0
 module-margin-right = 0
 
 ; font-0 = Noto:pixelsize=16;2
-font-0 = Playfair Display:pixelsize=16:weight=bold;2
-; font-0 = SFNS Display:pixelsize=16;2
+; font-0 = Playfair Display:pixelsize=16:weight=bold;2
+font-0 = SFNS Display:pixelsize=14;2
 ; font-0 = SFNS Display:pixelsize=16:weight=bold;2
-font-1 = Font Awesome 5 Free:pixelsize=13;3
+font-1 = Font Awesome 5 Free:pixelsize=14;3
 font-2 = Material Icons:pixelsize=13;3
 font-3 = SpaceMono Nerd Font Mono:pixelsize=20;5
 font-4 = Weather Icons:size=16;4
@@ -51,15 +50,14 @@ font-6 = SFNS Display:pixelsize=16;2
 fixed-center = true
 
 modules-left = i3
-modules-center = spotify date time
-modules-right = volume temperature0 temperature1 powermenu
+modules-center = spotify date
+; modules-right = temperature volume powermenu
 
 tray-position = right
-override-direct = true
+override-redirect = true
 wm-restack = i3
 ; tray-transparent = true
 tray-background = ${colors.background}
-
 
 [module/xwindow]
 type = internal/xwindow
@@ -91,7 +89,7 @@ label-empty-padding = 4
 [module/i3]
 type = internal/i3
 
-format = <label-state><label-mode>
+format = | <label-state><label-mode>
 index-sort = true
 wrapping-scroll = false
 strip-wsnumbers = true
@@ -152,7 +150,6 @@ label-background = ${colors.background}
 
 [module/volume]
 type = internal/volume
-
 format-volume = <ramp-volume> <label-volume>
 format-voulme-padding = 0
 format-volume-foreground = ${colors.foreground-alt}
@@ -183,14 +180,13 @@ format-prefix = " "
 format = <label>
 exec = python3 ~/.config/polybar/scripts/spotify.py
 click-left = playerctl play-pause
-scroll-up = playerctl next
-scroll-down = playerctl previous
+scroll-up = playerctl previous
+scroll-down = playerctl next
 format-underline = ${colors.foreground}
 
-[module/temperature0]
+[module/temperature]
 type = internal/temperature
 interval = 0.5
-hwmon-path = /sys/devices/platform/coretemp.0/hwmon/hwmon0/temp1_input
 warn-temperature = 60
 
 format = <ramp> <label>
@@ -201,28 +197,7 @@ label = %temperature%
 label-foreground = ${colors.foreground-alt}
 label-warn = %temperature%
 label-warn-foreground = ${colors.alert}
-
-ramp-font = 1
-ramp-0 = 
-ramp-1 = 
-ramp-2 = 
-ramp-3 = 
-
-ramp-foreground = ${colors.foreground-alt}
-
-[module/temperature1]
-type = internal/temperature
-interval = 0.5
-hwmon-path = /sys/devices/platform/coretemp.0/hwmon/hwmon1/temp1_input
-warn-temperature = 60
-
-format = <ramp> <label>
-format-warn = <ramp>  <label-warn>
-
-label = %temperature%
-label-foreground = ${colors.foreground-alt}
-label-warn = %temperature%
-label-warn-foreground = ${colors.alert}
+label-padding-right = 4
 
 ramp-font = 1
 ramp-0 = 
@@ -251,8 +226,10 @@ ramp-2 = 
 type = custom/menu
 
 format-spacing = 1
-format-padding = 3
+iormat-padding = 3
+format-padding-right = 30
 always-centered = true
+expand-right = false
 
 label-open = 
 label-open-foreground = ${colors.foreground-alt}
