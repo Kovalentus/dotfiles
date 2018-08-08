@@ -18,11 +18,15 @@ primary = ${xrdb:color1:#222}
 secondary = ${xrdb:color2:#222}
 alert = ${xrdb:color3:#222}
 
+
 [bar/top]
+; dpi = 90
 monitor =
 bottom = false
 width = 100%
-height = 30
+height = 28
+; radius = 10
+line-size = 0
 offset-x =
 offset-y =
 background = ${colors.background}
@@ -30,19 +34,18 @@ foreground = ${colors.foreground}
 underline-size = 2
 underline-color = ${colors.foreground}
 
-padding-left = 45
-padding-right = 50
-margin-right = 5
-module-margin-left = 0
-module-margin-right = 0
+padding-left = 2
+padding-right = 3
+module-margin-left = 3
+module-margin-right = 3
 
 ; font-0 = Noto:pixelsize=16;2
 ; font-0 = Playfair Display:pixelsize=16:weight=bold;2
 font-0 = SFNS Display:pixelsize=14;2
 ; font-0 = SFNS Display:pixelsize=16:weight=bold;2
-font-1 = Font Awesome 5 Free:pixelsize=14;3
+font-1 = Font Awesome 5 Free:pixelsize=15;3
 font-2 = Material Icons:pixelsize=13;3
-font-3 = SpaceMono Nerd Font Mono:pixelsize=20;5
+font-3 = SpaceMono Nerd Font Mono:pixelsize=13;5
 font-4 = Weather Icons:size=16;4
 font-5 = Noto:pixelsize=16;2
 font-6 = SFNS Display:pixelsize=16;2
@@ -51,10 +54,10 @@ fixed-center = true
 
 modules-left = i3
 modules-center = spotify date
-; modules-right = temperature volume powermenu
+modules-right = volume temperature powermenu
 
-tray-position = right
-override-redirect = true
+tray-position = left
+override-redirect = false
 wm-restack = i3
 ; tray-transparent = true
 tray-background = ${colors.background}
@@ -89,8 +92,10 @@ label-empty-padding = 4
 [module/i3]
 type = internal/i3
 
-format = | <label-state><label-mode>
+format = <label-state><label-mode>
 index-sort = true
+format-underline = ${colors.foreground-alt}
+label-mode = ${colors.foreground-alt}
 wrapping-scroll = false
 strip-wsnumbers = true
 
@@ -105,7 +110,7 @@ label-mode-background = ${colors.primary}
 label-focused = %name%
 label-focused-background = ${colors.foreground}
 label-focused-foreground = ${colors.background}
-label-focused-underline = ${module/bspwm.label-focused-underline}
+; label-focused-underline = ${module/bspwm.label-focused-underline}
 label-focused-padding = ${module/bspwm.label-focused-padding}
 
 ; unfocused = Inactive workspace on any monitor
@@ -116,7 +121,7 @@ label-unfocused-padding = ${module/bspwm.label-occupied-padding}
 ; visible = Active workspace on unfocused monitor
 label-visible = %name%
 label-visible-background = ${self.label-focused-background}
-label-visible-underline = ${self.label-focused-underline}
+; label-visible-underline = ${self.label-focused-underline}
 label-visible-padding = ${self.label-focused-padding}
 
 ; urgent = Workspace with urgency hint set
@@ -132,11 +137,13 @@ type = internal/date
 interval = 1.0
 label-font = 0
 date = "%A %d %b"
-label = "%date%"
+time = "%H:%M"
+label = %date%    %time%
+format-underline = ${colors.foreground-alt}
 label-foreground = ${colors.foreground}
 label-background = ${colors.background}
-label-padding-right = 4
-label-padding-left = 4
+; label-padding-right = 4
+; label-padding-left = 4
 
 [module/time]
 type = internal/date
@@ -147,9 +154,41 @@ label = "%time%"
 label-foreground = ${colors.foreground}
 label-background = ${colors.background}
 
-
 [module/volume]
-type = internal/volume
+type = internal/alsa
+
+format-volume = <label-volume> <bar-volume>
+format-volume-underline = ${colors.foreground-alt}
+label-volume = 
+label-volume-foreground = ${root.foreground}
+; label-percentage = %percentage%
+
+; format-muted-prefix = " "
+format-muted-foreground = ${colors.foreground-alt}
+label-muted = "    ────────"
+label-muted-font = 0
+label-muted-underline = ${colors.foreground-alt}
+
+bar-volume-width = 10
+bar-volume-foreground-0 = ${colors.primary}
+bar-volume-foreground-1 = ${colors.primary}
+bar-volume-foreground-2 = ${colors.primary}
+bar-volume-foreground-3 = ${colors.primary}
+bar-volume-foreground-4 = ${colors.primary}
+bar-volume-foreground-5 = #f5a70a
+bar-volume-foreground-6 = #ff5555
+bar-volume-gradient = false
+bar-volume-indicator = │
+bar-volume-indicator-font = 3
+; bar-volume-indicator-foreground = #ff
+bar-volume-fill = ─
+bar-volume-fill-font = 3
+bar-volume-empty = ─
+bar-volume-empty-font = 3
+bar-volume-empty-foreground = ${colors.foreground-alt}
+
+[module/volumebar]
+type = internal/alsa
 format-volume = <ramp-volume> <label-volume>
 format-voulme-padding = 0
 format-volume-foreground = ${colors.foreground-alt}
@@ -161,7 +200,7 @@ label-volume-padding-right = 3
 ;format-muted-prefix = " "
 format-muted = <label-muted>
 format-muted-foreground = ${colors.foreground-alt}
-label-muted = "mute"
+label-muted = 🔇
 format-muted-padding = 4
 
 ramp-volume-font = 0
@@ -188,16 +227,19 @@ format-underline = ${colors.foreground}
 type = internal/temperature
 interval = 0.5
 warn-temperature = 60
+label-font = 3
 
 format = <ramp> <label>
+format-underline = ${colors.foreground-alt}
 ; label-font = 6
 format-warn = <ramp>  <label-warn>
 
-label = %temperature%
+label = %temperature-c%
 label-foreground = ${colors.foreground-alt}
-label-warn = %temperature%
+label-warn = %temperature-c%
 label-warn-foreground = ${colors.alert}
-label-padding-right = 4
+; label-padding-right = 4
+; ramp-padding-left = 4
 
 ramp-font = 1
 ramp-0 = 
@@ -226,23 +268,22 @@ ramp-2 = 
 type = custom/menu
 
 format-spacing = 1
-iormat-padding = 3
-format-padding-right = 30
+format-underline = ${colors.foreground-alt}
 always-centered = true
 expand-right = false
 
-label-open = 
+label-open = "    "
 label-open-foreground = ${colors.foreground-alt}
 label-close = 
 label-close-foreground = ${colors.foreground}
 label-separator = " "
 label-separator-foreground = ${colors.foreground-alt}
 
-menu-0-0 = 
+menu-0-0 = | 
 menu-0-0-exec = i3-msg exit
-menu-0-1 = 
+menu-0-1 = " "
 menu-0-1-exec = reboot
-menu-0-2 = 
+menu-0-2 =  |
 menu-0-2-exec = systemctl poweroff
 
 [settings]
