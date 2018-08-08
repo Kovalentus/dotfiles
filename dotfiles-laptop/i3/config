@@ -120,16 +120,16 @@ bindsym Mod1+minus scratchpad show
 # set $ws10 "10:  Music"
 
 
-set $ws1 "1:  Firefox"
-set $ws2 "2:  Spacemacs"
-set $ws3 "3:  Terminal"
-set $ws4 "4:  Vim"
-set $ws5 "5:  Steam"
+set $ws1 "1:  "
+set $ws2 "2:  "
+set $ws3 "3:  "
+set $ws4 "4:  "
+set $ws5 "5:  "
 set $ws6 "6 : Misc"
 set $ws7 "7 : Misc"
 set $ws8 "8 : Misc"
-set $ws9 "9 :  YouTube"
-set $ws10 "10:  Music"
+set $ws9 "9 :  "
+set $ws10 "10:  "
 # switch to workspace
 bindsym Mod1+1 workspace $ws1
 bindsym Mod1+2 workspace $ws2
@@ -224,18 +224,18 @@ bindsym Mod1+r mode "resize"
 
 # Startup
 
-exec_always compton
-exec setxkbmap se,us -option -option caps:escape -option grp:rshift_toggle
-exec start-pulseaudio-x11
-exec --no-startup-id /usr/libexec/gnome-settings-daemon-localexec
+exec --no-startup-id setxkbmap se,us -option -option caps:escape -option grp:rshift_toggle
+exec --no-startup-id xinput set-prop 14 309 1
+exec --no-startup-id start-pulseaudio-x11
+exec --no-startup-id compton
+# exec --no-startup-id /usr/libexec/gnome-settings-daemon-localexec
 exec --no-startup-id dconf write /org/gnome/settings-daemon/plugins/cursor/active false
 exec --no-startup-id wal -R
 exec --no-startup-id nm-applet
 exec --no-startup-id blueman-applet
 # exec feh --bg-scale $HOME/Pictures/TerminalWallpapers/SpaceMountains.jpg
-exec emacs-snapshot --daemon
-exec redshift
-exec xinput set-prop 14 309 1
+exec --no-startup-id emacs-snapshot --daemon
+exec --no-startup-id redshift
 exec_always --no-startup-id ~/.i3/polybar.sh &
 
 
@@ -297,7 +297,7 @@ bindsym Mod1+Right        workspace next
 # Numpad quickstart
 
 bindsym  Mod1+Mod2+KP_1      exec --no-startup-id firefox
-bindsym  Mod1+Mod2+KP_2      exec --no-startup-id emacs; workspace $ws2
+bindsym  Mod1+Mod2+KP_2      exec --no-startup-id emacs-snapshot; workspace $ws2
 # bindsym  Mod1+Mod2+KP_2      exec --no-startup-id emacs-snapshot; workspace $ws2
 bindsym  Mod1+Mod2+KP_3      exec --no-startup-id thunar; workspace $ws3
 bindsym  Mod1+Mod2+KP_4      exec --no-startup-id rxvt -e vim; workspace $ws4
