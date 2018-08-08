@@ -75,7 +75,7 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put thehttps://raw.githubusercontent.com/tarao/elisp/master/linum%2B.el
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '(ws-butler sublimity google-this impatient-mode evil-quickscope theming xresources-theme color rjsx-mode doom-themes)
+   dotspacemacs-additional-packages '(ws-butler sublimity google-this impatient-mode evil-quickscope theming xresources-theme color rjsx-mode doom-themes evil-terminal-cursor-changer)
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
@@ -107,7 +107,7 @@ values."
    dotspacemacs-elpa-https nil
    ;; Maximum allowed time in seconds to contact an ELPA repository.
    dotspacemacs-elpa-timeout 5
-   dotspacemacs-mode-line-theme 'spacemacs
+   dotspacemacs-mode-line-theme 'vim-powerline
    ;; If non nil then spacemacs will check for updates at startup
    ;; when the current branch is not `develop'. Note that checking for
    ;; new versions works via git commands, thus it calls GitHub services
@@ -275,11 +275,11 @@ values."
    ;; A value from the range (0..100), in increasing opacity, which describes
    ;; the transparency level of a frame when it's active or selected.
    ;; Transparency can be toggled through `toggle-transparency'. (default 90)
-   dotspacemacs-active-transparency 90
+   dotspacemacs-active-transparency 85
    ;; A value from the range (0..100), in increasing opacity, which describes
    ;; the transparency level of a frame when it's inactive or deselected.
    ;; Transparency can be toggled through `toggle-transparency'. (default 90)
-   dotspacemacs-inactive-transparency 90
+   dotspacemacs-inactive-transparency 75
    ;; If non nil show the titles of transient states. (default t)
    dotspacemacs-show-transient-state-title t
    ;; If non nil show the color guide hint for transient state keys. (default t)
@@ -444,7 +444,7 @@ you should place your code here."
   (defun set-terminal-colors ()
     (set-face-foreground 'font-lock-variable-name-face "color-222")
     (set-face-foreground 'font-lock-constant-face "color-172")
-   (set-face-foreground 'font-lock-string-face "brightyellow")
+    (set-face-foreground 'font-lock-string-face "brightyellow")
     (set-face-background 'sp-show-pair-match-face "brightblack")
     (set-face-attribute 'region nil :background "white" :foreground "brightblack")
     ;; (set-face-foreground 'font-lock-comment-face "color-240")
@@ -452,7 +452,6 @@ you should place your code here."
     ;; (set-face-foreground 'font-lock-builtin-face "color-172")
     (set-face-foreground 'font-lock-type-face "color-202")
     ;; (set-face-foreground 'js2-function-param "brightgreen")
-    (set-face-background 'default "unspecified-bg")
     )
 
   (if (daemonp) (set-terminal-colors))
@@ -462,6 +461,10 @@ you should place your code here."
 
   (if (daemonp) (global-hl-line-mode -1))
 
+  (unless (display-graphic-p)
+    (require 'evil-terminal-cursor-changer)
+    (evil-terminal-cursor-changer-activate) ; or (etcc-on)
+    )
   (if (daemonp) (setq evil-motion-state-cursor 'box)) ; █
   (if (daemonp) (setq evil-visual-state-cursor 'box)) ; █
   (if (daemonp) (setq evil-normal-state-cursor 'box)) ; █
