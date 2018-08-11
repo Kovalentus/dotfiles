@@ -75,7 +75,7 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put thehttps://raw.githubusercontent.com/tarao/elisp/master/linum%2B.el
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '(ws-butler sublimity google-this impatient-mode evil-quickscope theming xresources-theme color rjsx-mode doom-themes evil-terminal-cursor-changer)
+   dotspacemacs-additional-packages '(ws-butler sublimity google-this impatient-mode evil-quickscope theming xresources-theme color rjsx-mode doom-themes evil-terminal-cursor-changer web-mode)
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
@@ -148,8 +148,8 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(doom-challenger-deep
-                         xresources
+   dotspacemacs-themes '(xresources
+                         doom-challenger-deep
                          flatland
                          doom-opera
                          doom-tomorrow-night
@@ -388,9 +388,9 @@ you should place your code here."
   ;; (global-set-key (kbd "M-c") (kbd "ö") )
   ;; for making {} life easie;'r
   (global-set-key (kbd "C-ö") (kbd "{") )
-  (global-set-key (kbd "M-ö") (kbd "{") )
   (global-set-key (kbd "C-Ö") (kbd "[") )
-  (global-set-key (kbd "M-Ö") (kbd "[") )
+  (global-set-key (kbd "M-ö") 'tide-jump-to-definition)
+  (global-set-key (kbd "M-Ö") 'tide-jump-back)
   (global-set-key (kbd "C-å") (kbd "SPC e n") )
   (global-set-key (kbd "M-å") (kbd "%") )
   (global-set-key (kbd "C-Ä") 'evil-avy-goto-line)
@@ -433,7 +433,6 @@ you should place your code here."
   (add-to-list 'auto-mode-alist '("\\.js\\'" . rjsx-mode))
   ;; Theme customization
 
-  (set-face-foreground 'linum "orange")
   (defun set-hl-line-color-based-on-theme ()
     "Sets the hl-line face to have no foreground and a background
     that is 5% lighter than the default face's background."
@@ -451,7 +450,7 @@ you should place your code here."
     (set-face-foreground 'font-lock-function-name-face "brightred")
     ;; (set-face-foreground 'font-lock-builtin-face "color-172")
     (set-face-foreground 'font-lock-type-face "color-202")
-    ;; (set-face-foreground 'js2-function-param "brightgreen")
+    ;; (set-face-foreground 'js2-function-param "yellow")
     )
 
   (if (daemonp) (set-terminal-colors))
@@ -471,6 +470,7 @@ you should place your code here."
   (if (daemonp) (setq evil-insert-state-cursor 'bar)) ; ⎸
   (if (daemonp) (setq evil-emacs-state-cursor  'hbar)) ; _
 
+
   (unless (daemonp)
     (spacemacs/enable-transparency)
     (require 'color)
@@ -484,14 +484,57 @@ you should place your code here."
        `(company-scrollbar-bg ((t (:background ,(color-lighten-name bg 10)))))
        `(company-scrollbar-fg ((t (:background ,(color-lighten-name bg 5)))))
        `(company-tooltip-selection ((t (:inherit font-lock-function-name-face))))
-       `(company-tooltip-common ((t (:inherit font-lock-constant-face)))))
+       `(company-tooltip-common ((t (:inherit font-lock-constant-face))))
+       `(tide-hl-identifier-face((t (:background ,(color-lighten-name bg 10))))))
       )
     )
-  ;; setu
-  ;; (unless (display-graphic-p)
-  ;;   (evil-leader/set-key
-  ;;     "q q" 'spacemacs/frame-killer)
-  ;;   )
+  ;; Needs to be last for some reason
+  (if (display-graphic-p) (load-theme 'doom-challenger-deep t))
+
+
+  ;;JAVASCRIPT SHIT
+  (defun setup-tide-mode ()
+    (interactive)
+    (tide-setup)
+    (flycheck-mode +1)
+    (setq flycheck-check-syntax-automatically '(save mode-enabled))
+    (eldoc-mode +1)
+    (tide-hl-identifier-mode +1)
+    ;; company is an optional dependency. You have to
+    ;; install it separately via package-install
+    ;; `M-x package-install [ret] company`
+    (company-mode +1))
+
+  ;;TSX
+  (require 'web-mode)
+  (add-to-list 'auto-mode-alist '("\\.tsx\\'" . web-mode))
+  (add-hook 'web-mode-hook
+            (lambda ()
+              (when (string-equal "tsx" (file-name-extension buffer-file-name))
+                (setup-tide-mode))))
+  ;; enable typescript-tslint checker
+  (flycheck-add-mode 'typescript-tslint 'web-mode)
+
+  ;; aligns annotation to the right hand side
+  (setq company-tooltip-align-annotations t)
+
+  ;; formats the buffer before saving
+  (add-hook 'before-save-hook 'tide-format-before-save)
+
+  (add-hook 'typescript-mode-hook #'setup-tide-mode)
+  (add-hook 'js2-mode-hook #'setup-tide-mode)
+  ;; (add-hook 'rjsx-mode-hook #'setup-tide-mode)
+  ;; configure javascript-tide checker to run after your default javascript checker
+  ;; (flycheck-add-next-checker 'javascript-eslint 'javascript-tide 'append)
+  (use-package tide
+  :ensure t
+  :after (typescript-mode company flycheck)
+  :hook ((typescript-mode . tide-setup)
+         (typescript-mode . tide-hl-identifier-mode)
+         (before-save . tide-format-before-save)))
+
+
+  (set-face-foreground 'linum "orange")
 )
 ;; Do Not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.

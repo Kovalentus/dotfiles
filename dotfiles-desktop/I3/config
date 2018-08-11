@@ -42,8 +42,8 @@ bindsym Mod1+Return exec xfce4-terminal
 bindsym Mod1+Shift+q kill
 
 # start rofi (a better, more handsome program launcher)
-# bindsym Mod1+d exec "rofi -combi-modi window,drun -show combi"
-bindsym Mod1+d exec "rofi -modi drun -show drun"
+bindsym Mod1+d exec "rofi -modi drun,window,run -combi-modi window,drun -show combi"
+# bindsym Mod1+d exec "rofi -modi drun -show drun"
 
 # start dmenu (a program launcher)
 # bindsym Mod1+d exec dmenu_run
@@ -111,17 +111,29 @@ bindsym Mod1+minus scratchpad show
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
 
-set $ws1 "1:  Firefox"
-set $ws2 "2:  Spacemacs"
-set $ws3 "3:  Terminal"
-set $ws4 "4:  Vim"
-set $ws5 "5:  Steam"
-set $ws6 "6 :  Documents"
-set $ws7 "7 : Misc"
-set $ws8 "8 : Misc"
-set $ws9 "9 :  YouTube"
-set $ws10 "10:  Music"
+# Name version
+# set $ws1 "1:  Firefox"
+# set $ws2 "2:  Spacemacs"
+# set $ws3 "3:  Terminal"
+# set $ws4 "4:  Thunar"
+# set $ws5 "5:  Steam"
+# set $ws6 "6 :  Documents"
+# set $ws7 "7 : Misc"
+# set $ws8 "8 : Misc"
+# set $ws9 "9 :  YouTube"
+# set $ws10 "10:  Music"
 
+# Simple version
+set $ws1 "1:  "
+set $ws2 "2: "
+set $ws3 "3:  "
+set $ws4 "4:  "
+set $ws5 "5:  "
+set $ws6 "6 :  "
+set $ws7 "7 : "
+set $ws8 "8 : Misc"
+set $ws9 "9 :  "
+set $ws10 "10:  "
 # switch to workspace
 bindsym Mod1+1 workspace $ws1
 bindsym Mod1+2 workspace $ws2
@@ -151,9 +163,10 @@ bindsym Mod1+Shift+0 move container to workspace $ws10
 # assign [class="Termite"] $ws1
 # assign [class="Firefox"] $ws1
 # assign [class="Emacs"] $ws2
-assign [class="Thunar"] $ws3
+assign [class="Thunar"] $ws4
 assign [class="Vim"] $ws4
 assign [class="Steam"] $ws5
+assign [class="libreoffice-startcenter"] $ws6
 assign [class="Rhythmbox"] $ws10
 assign [class="Spotify"] $ws10
 
@@ -216,12 +229,13 @@ exec --no-startup-id start-pulseaudio-x11
 exec --no-startup-id redshift
 exec --no-startup-id setxkbmap -layout se,us -option caps:escape -option grp:rshift_toggle
 exec --no-startup-id compton -b
-exec --no-startup-id ~/.i3/polybar.sh &
 exec --no-startup-id wal -R
+exec --no-startup-id mpd
 exec --no-startup-id emacs-snapshot --daemon
 exec --no-startup-id nm-applet
 exec --no-startup-id indicator-cpufreq
 exec --no-startup-id dconf write /org/gnome/settings-daemon/plugins/cursor/active false
+exec_always --no-startup-id ~/.i3/polybar.sh &
 
 # exec feh --bg-scale $HOME/Pictures/BearMorning.jpg
 
@@ -241,9 +255,12 @@ bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5%
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5%
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle
 
-bindsym XF86AudioPlay exec playerctl play-pause
-bindsym XF86AudioNext exec playerctl next
-bindsym XF86AudioPrev exec playerctl previous
+# bindsym XF86AudioPlay exec playerctl play-pause && mpc toggle
+# bindsym XF86AudioNext exec playerctl next
+# bindsym XF86AudioPrev exec playerctl previous
+bindsym XF86AudioPlay exec --no-startup-id mpc toggle
+bindsym XF86AudioNext exec --no-startup-id mpc next
+bindsym XF86AudioPrev exec --no-startup-id mpc prev
 
 #Custom keybinds
 
@@ -266,19 +283,19 @@ bindsym Mod1+Shift+p      exec xfce4-terminal -e $HOME/Documents/Scripts/URxvt/s
 bindsym Mod1+Left         workspace prev
 bindsym Mod1+Right        workspace next
 
-bindsym --whole-window Mod1+Button4      workspace next
-bindsym --whole-window Mod1+Button5      workspace prev
+bindsym --whole-window Mod1+Button4      workspace prev
+bindsym --whole-window Mod1+Button5      workspace next
 
 # Numpad quickstart
 
 bindsym  Mod1+Mod2+KP_1      exec firefox
 bindsym  Mod1+Mod2+KP_2      exec emacs-snapshot
-bindsym  Mod1+Mod2+KP_3      exec thunar; workspace $ws3
+bindsym  Mod1+Mod2+KP_3      exec thunar; workspace $ws4
 bindsym  Mod1+Mod2+KP_4      exec xfce4-terminal -e vim; workspace $ws4
 bindsym  Mod1+Mod2+KP_5      exec steam; workspace $ws5
 bindsym  Mod1+Mod2+KP_6      exec libreoffice; workspace $ws6
 bindsym  Mod1+Mod2+KP_7      exec /opt/Postman/Postman
-bindsym  Mod1+Mod2+KP_8      exec spotify; workspace $ws10
+bindsym  Mod1+Mod2+KP_8      exec --no-startup-id spotify; workspace $ws10
 bindsym  Mod1+Mod2+KP_9      exec rhythmbox; workspace $ws10
 bindsym  Mod1+Mod2+KP_0      exec xfce4-terminal -e $HOME/Documents/Scripts/emacsscript.sh
 

@@ -18,10 +18,9 @@ primary = ${xrdb:color1:#222}
 secondary = ${xrdb:color2:#222}
 alert = ${xrdb:color3:#222}
 
-
 [bar/top]
-; dpi = 90
-monitor =
+dpi = 120
+monitor = DP-2
 bottom = false
 width = 100%
 height = 28
@@ -36,36 +35,72 @@ underline-color = ${colors.foreground}
 
 padding-left = 2
 padding-right = 3
-module-margin-left = 3
-module-margin-right = 3
+module-margin-left = 2
+module-margin-right = 2
 
 ; font-0 = Noto:pixelsize=16;2
 ; font-0 = Playfair Display:pixelsize=16:weight=bold;2
-font-0 = SFNS Display:pixelsize=14;2
-; font-0 = SFNS Display:pixelsize=16:weight=bold;2
-font-1 = Font Awesome 5 Free:pixelsize=15;3
-font-2 = Material Icons:pixelsize=13;3
-font-3 = SpaceMono Nerd Font Mono:pixelsize=13;5
+font-0 = SFNS Display:pixelsize=12;2
+font-1 = Font Awesome 5 Free:style=Regular:pixelsize=10;1
+font-2 = Font Awesome 5 Free:style=Solid:pixelsize=10
+font-3 = Font Awesome 5 Brands:style=Regular:pixelsize=12;1
+; font-2 = Material Icons:pixelsize=13;3
+; font-3 = SpaceMono Nerd Font Mono:pixelsize=13;5
 font-4 = Weather Icons:size=16;4
-font-5 = Noto:pixelsize=16;2
-font-6 = SFNS Display:pixelsize=16;2
+font-5 = Noto:pixelsize=12;2
+font-6 = Source Code Pro:pixelsize=14;2
 
 fixed-center = true
 
 modules-left = i3
-modules-center = spotify date
-modules-right = volume temperature powermenu
-
+modules-center = date
+modules-right =  spotify volume powermenu
 tray-position = left
-override-redirect = false
-wm-restack = i3
-; tray-transparent = true
 tray-background = ${colors.background}
+
+[bar/bot]
+
+modules-left = mpd
+modules-center =
+modules-right = temperature
+; tray-position = right
+; tray-background = ${colors.background}
+
+monitor = DP-2
+bottom = true
+line-size = 0
+; width = 1860
+width = 100%
+height = 30
+; offset-x = 30
+offset-x = 0
+offset-y =
+background =
+foreground = ${colors.foreground}
+underline-size = 2
+underline-color = ${colors.foreground}
+
+padding-left = 10
+padding-right = 10
+module-margin-left = 2
+module-margin-right = 2
+
+font-0 = SFNS Display:pixelsize=14;2
+font-1 = Font Awesome 5 Free:pixelsize=15;3
+font-2 = Material Icons:pixelsize=13;3
+font-3 = SpaceMono Nerd Font Mono:pixelsize=13;5
+font-4 = Weather Icons:size=16;4
+font-5 = Font Awesome 5 Brands:pixelsize=15;2
+font-6 = Source Code Pro:pixelsize=16;2
+
+fixed-center = true
+override-redirect = true
+wm-restack = i3
+
 
 [module/xwindow]
 type = internal/xwindow
 label = %title:0:120:...%
-label-padding = 4
 
 [module/bspwm]
 type = internal/bspwm
@@ -135,7 +170,7 @@ label-urgent-padding = ${module/bspwm.label-urgent-padding}
 [module/date]
 type = internal/date
 interval = 1.0
-label-font = 0
+label-font = 1
 date = "%A %d %b"
 time = "%H:%M"
 label = %date%    %time%
@@ -148,7 +183,7 @@ label-background = ${colors.background}
 [module/time]
 type = internal/date
 interval = 1.0
-label-font = 0
+label-font = 1
 time = "%H:%M"
 label = "%time%"
 label-foreground = ${colors.foreground}
@@ -158,16 +193,16 @@ label-background = ${colors.background}
 type = internal/alsa
 
 format-volume = <label-volume> <bar-volume>
-format-volume-underline = ${colors.foreground-alt}
 label-volume = 
 label-volume-foreground = ${root.foreground}
+; format-volume-underline = ${colors.foreground-alt}
 ; label-percentage = %percentage%
 
 ; format-muted-prefix = " "
 format-muted-foreground = ${colors.foreground-alt}
-label-muted = "    ────────"
-label-muted-font = 0
-label-muted-underline = ${colors.foreground-alt}
+label-muted = "  ─────────"
+label-muted-font = 6
+; label-muted-underline = ${colors.foreground-alt}
 
 bar-volume-width = 10
 bar-volume-foreground-0 = ${colors.primary}
@@ -179,38 +214,13 @@ bar-volume-foreground-5 = #f5a70a
 bar-volume-foreground-6 = #ff5555
 bar-volume-gradient = false
 bar-volume-indicator = │
-bar-volume-indicator-font = 3
+bar-volume-indicator-font = 6
 ; bar-volume-indicator-foreground = #ff
 bar-volume-fill = ─
-bar-volume-fill-font = 3
+bar-volume-fill-font = 6
 bar-volume-empty = ─
-bar-volume-empty-font = 3
+bar-volume-empty-font = 6
 bar-volume-empty-foreground = ${colors.foreground-alt}
-
-[module/volumebar]
-type = internal/alsa
-format-volume = <ramp-volume> <label-volume>
-format-voulme-padding = 0
-format-volume-foreground = ${colors.foreground-alt}
-; label-volume-font = 6
-label-volume = %percentage%
-ramp-volume-padding-left = 75
-label-volume-padding-right = 3
-
-;format-muted-prefix = " "
-format-muted = <label-muted>
-format-muted-foreground = ${colors.foreground-alt}
-label-muted = 🔇
-format-muted-padding = 4
-
-ramp-volume-font = 0
-ramp-volume-0 = 
-ramp-volume-1 = 
-ramp-volume-2 = 
-ramp-headphones-0 = 
-ramp-headphones-1 = 
-ramp-headphones-2 = 
-
 
 [module/spotify]
 type = custom/script
@@ -221,54 +231,43 @@ exec = python3 ~/.config/polybar/scripts/spotify.py
 click-left = playerctl play-pause
 scroll-up = playerctl previous
 scroll-down = playerctl next
-format-underline = ${colors.foreground}
+; format-underline = ${colors.foreground}
 
 [module/temperature]
 type = internal/temperature
 interval = 0.5
 warn-temperature = 60
-label-font = 3
+; label-font = 0
 
 format = <ramp> <label>
-format-underline = ${colors.foreground-alt}
+; format-underline = ${colors.foreground-alt}
 ; label-font = 6
 format-warn = <ramp>  <label-warn>
 
 label = %temperature-c%
 label-foreground = ${colors.foreground-alt}
 label-warn = %temperature-c%
+label-warn-font = 7
 label-warn-foreground = ${colors.alert}
+; format-warn-underline = ${colors.foreground-alt}
 ; label-padding-right = 4
 ; ramp-padding-left = 4
 
 ramp-font = 1
-ramp-0 = 
-ramp-1 = 
-ramp-2 = 
-ramp-3 = 
+ramp-0 = 
+ramp-1 = 
+ramp-2 = 
+ramp-3 = 
+ramp-4 = 
 
 ramp-foreground = ${colors.foreground-alt}
-
-[module/backlight]
-type = internal/backlight
-
-card = intel_backlight
-enable-scroll = true
-
-;format = <ramp><label>
-format = <ramp>
-label = %percentage%
-
-ramp-0 = 
-ramp-1 = 
-ramp-2 = 
 
 
 [module/powermenu]
 type = custom/menu
 
 format-spacing = 1
-format-underline = ${colors.foreground-alt}
+; format-underline = ${colors.foreground-alt}
 always-centered = true
 expand-right = false
 
@@ -286,6 +285,38 @@ menu-0-1-exec = reboot
 menu-0-2 =  |
 menu-0-2-exec = systemctl poweroff
 
+[module/battery]
+type = internal/battery
+battery = BAT0
+adapter = AC0
+full-at = 98
+
+format-charging = <animation-charging> <label-charging>
+; format-charging-underline = ${colors.foreground-alt}
+format-full = "  Full"
+; format-full-underline = ${colors.foreground-alt}
+
+format-discharging = <ramp-capacity> <label-discharging>
+; format-discharging-underline = ${self.format-charging-underline}
+
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-foreground = ${colors.foreground-alt}
+
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
+animation-charging-3 = 
+animation-charging-framerate = 150
+
+animation-discharging-0 = 
+animation-discharging-1 = 
+animation-discharging-2 = 
+animation-discharging-3 = 
+animation-discharging-framerate = 150
+
 [settings]
 screenchange-reload = true
 ;compositing-background = xor
@@ -296,3 +327,67 @@ screenchange-reload = true
 [global/wm]
 margin-top = 5
 margin-bottom = 5
+
+
+; Added from examplebar
+
+[module/mpd]
+type = internal/mpd
+format-online =  <icon-prev> <toggle> <icon-stop> <icon-next>  <bar-progress>  <label-song>
+format-bar = <bar-progress>
+
+bar-progress-font = 1
+bar-progress-width = 10
+bar-progress-indicator = │
+bar-progress-indicator-font = 1
+bar-progress-fill = ─
+bar-progress-fill-font = 1
+bar-progress-empty = ─
+bar-progress-empty-font = 1
+
+; icon-prev = 
+icon-prev = 
+icon-stop = 
+icon-play = 
+icon-pause = 
+icon-next = 
+
+; label-song-maxlen = 25
+label-song-ellipsis = true
+
+
+[module/xbacklight]
+type = internal/xbacklight
+
+format = <label> <bar>
+label = 
+
+scroll-up =
+scroll-down =
+bar-width = 6
+bar-indicator = │
+bar-indicator-foreground = #fff
+bar-indicator-font = 2
+bar-fill = ─
+bar-fill-font = 2
+bar-fill-foreground = ${colors.foreground-alt}
+bar-empty = ─
+bar-empty-font = 2
+bar-empty-foreground = ${colors.foreground-alt}
+
+[module/backlight]
+inherit = module/xbacklight
+type = internal/backlight
+card = intel_backlight
+format-underline = ${colors.foreground-alt}
+
+
+[module/xkeyboard]
+type = internal/xkeyboard
+blacklist-0 = num lock
+
+label-indicator = %name%
+; label-layout-underline = ${colors.foreground-alt}
+
+label-indicator-background = ${colors.foreground-alt}
+label-indicater-underline = ${colors.foreground-alt}
