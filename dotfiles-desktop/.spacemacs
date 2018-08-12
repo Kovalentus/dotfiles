@@ -347,6 +347,7 @@ before packages are loaded. If you are unsure, you should try in setting them in
   (define-derived-mode anaconda-view-mode special-mode "Anaconda-View")
   (setq default-input-method "swedish-keyboard")
   (setq use-default-input-method t)
+  ;; (desktop-save-mode 1)
   ;; (setq theming-modifications '(
   ;;      (flatland
   ;;       (default :background "#1f1f22")
@@ -458,7 +459,7 @@ you should place your code here."
   (if (daemonp) (evil-leader/set-key
                   "q q" 'spacemacs/frame-killer))
 
-  (if (daemonp) (global-hl-line-mode -1))
+  ;; (if (daemonp) (global-hl-line-mode -1))
 
   (unless (display-graphic-p)
     (require 'evil-terminal-cursor-changer)
@@ -471,13 +472,21 @@ you should place your code here."
   (if (daemonp) (setq evil-emacs-state-cursor  'hbar)) ; _
 
 
+  (if (daemonp)
+      (add-hook 'after-make-frame-functions
+                (lambda (frame)
+                  (with-selected-frame frame
+                    (load-theme 'doom-challenger-deep t)
+                    (spacemacs/enable-transparency))))
+    )
+
   (unless (daemonp)
-    (spacemacs/enable-transparency)
     (require 'color)
     (set-hl-line-color-based-on-theme)
     ;; (set-face-foreground 'font-lock-string-face "LightSteelBlue")
     (global-hl-line-mode nil)
     ;;Company mode dropdown
+    (spacemacs/enable-transparency)
     (let ((bg (face-attribute 'default :background)))
       (custom-set-faces
        `(company-tooltip ((t (:inherit default :background ,(color-lighten-name bg 2)))))
