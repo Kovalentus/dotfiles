@@ -52,22 +52,22 @@ bindsym Mod1+d exec "rofi -modi drun,window,run -combi-modi window,drun -show co
 # bindsym Mod1+d exec --no-startup-id i3-dmenu-desktop
 
 # change focus
-bindsym Mod1+$left focus left
-bindsym Mod1+$down focus down
-bindsym Mod1+$up focus up
-bindsym Mod1+$right focus right
+# bindsym Mod1+$left focus left
+# bindsym Mod1+$down focus down
+# bindsym Mod1+$up focus up
+# bindsym Mod1+$right focus right
 
 # alternatively, you can use the cursor keys:
-# bindsym Mod1+Left focus left
-# bindsym Mod1+Down focus down
-# bindsym Mod1+Up focus up
-# bindsym Mod1+Right focus right
+bindsym Mod1+Left focus left
+bindsym Mod1+Down focus down
+bindsym Mod1+Up focus up
+bindsym Mod1+Right focus right
 
 # move focused window
-bindsym Mod1+Shift+$left move left
-bindsym Mod1+Shift+$down move down
-bindsym Mod1+Shift+$up move up
-bindsym Mod1+Shift+$right move right
+# bindsym Mod1+Shift+$left move left
+# bindsym Mod1+Shift+$down move down
+# bindsym Mod1+Shift+$up move up
+# bindsym Mod1+Shift+$right move right
 
 # alternatively, you can use the cursor keys:
 bindsym Mod1+Shift+Left move left
@@ -231,7 +231,7 @@ exec --no-startup-id setxkbmap -layout se,us -option caps:escape -option grp:rsh
 exec --no-startup-id compton -b
 exec --no-startup-id wal -R
 exec --no-startup-id mpd
-exec --no-startup-id emacs-snapshot --daemon
+# exec --no-startup-id emacs-snapshot --daemon
 exec --no-startup-id nm-applet
 exec --no-startup-id indicator-cpufreq
 exec --no-startup-id dconf write /org/gnome/settings-daemon/plugins/cursor/active false
@@ -280,8 +280,8 @@ bindsym Mod1+Shift+t      exec xfce4-terminal -e $HOME/Documents/Scripts/next_wa
 bindsym Mod1+p            exec xfce4-terminal -e $HOME/Documents/Scripts/walltheme.sh
 bindsym Mod1+Shift+p      exec xfce4-terminal -e $HOME/Documents/Scripts/URxvt/start_wallpaper.sh
 
-bindsym Mod1+Left         workspace prev
-bindsym Mod1+Right        workspace next
+bindsym Mod1+$left            workspace prev
+bindsym Mod1+$right            workspace next
 
 bindsym --whole-window Mod1+Button4      workspace prev
 bindsym --whole-window Mod1+Button5      workspace next
@@ -297,7 +297,8 @@ bindsym  Mod1+Mod2+KP_6      exec libreoffice; workspace $ws6
 bindsym  Mod1+Mod2+KP_7      exec /opt/Postman/Postman
 bindsym  Mod1+Mod2+KP_8      exec --no-startup-id spotify; workspace $ws10
 bindsym  Mod1+Mod2+KP_9      exec rhythmbox; workspace $ws10
-bindsym  Mod1+Mod2+KP_0      exec xfce4-terminal -e $HOME/Documents/Scripts/emacsscript.sh
+# bindsym  Mod1+Mod2+KP_0      exec xfce4-terminal -e $HOME/Documents/Scripts/emacsscript.sh
+bindsym  Mod1+Mod2+KP_0      exec emacsclient-snapshot -c
 
 for_window [class="Spotify"] move to workspace $ws10
 
