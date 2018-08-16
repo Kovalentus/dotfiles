@@ -58,22 +58,37 @@ bindsym Mod1+d exec "rofi -modi drun,window,run -combi-modi window,drun -show co
 # bindsym Mod1+$right focus right
 
 # alternatively, you can use the cursor keys:
-bindsym Mod1+Left focus left
-bindsym Mod1+Down focus down
-bindsym Mod1+Up focus up
-bindsym Mod1+Right focus right
+bindsym Mod1+Shift+Left focus left
+bindsym Mod1+Shift+Down focus down
+bindsym Mod1+Shift+Up focus up
+bindsym Mod1+Shift+Right focus right
 
-# move focused window
-# bindsym Mod1+Shift+$left move left
-# bindsym Mod1+Shift+$down move down
-# bindsym Mod1+Shift+$up move up
-# bindsym Mod1+Shift+$right move right
+# Focus focused window
+bindsym Mod1+Shift+$left focus left
+bindsym Mod1+Shift+$down focus down
+bindsym Mod1+Shift+$up focus up
+bindsym Mod1+Shift+$right focus right
 
-# alternatively, you can use the cursor keys:
-bindsym Mod1+Shift+Left move left
-bindsym Mod1+Shift+Down move down
-bindsym Mod1+Shift+Up move up
-bindsym Mod1+Shift+Right move right
+# Move foused window
+bindsym Mod1+Ctrl+Left move left
+bindsym Mod1+Ctrl+Down move down
+bindsym Mod1+Ctrl+Up move up
+bindsym Mod1+Ctrl+Right move right
+
+bindsym Mod1+Ctrl+$left move left
+bindsym Mod1+Ctrl+$down move down
+bindsym Mod1+Ctrl+$up move up
+bindsym Mod1+Ctrl+$right move right
+
+# Workspace switch
+bindsym Mod1+$left             workspace prev
+bindsym Mod1+$right            workspace next
+
+bindsym Mod1+Left         workspace prev
+bindsym Mod1+Right        workspace next
+
+bindsym --whole-window Mod1+Button4      workspace prev
+bindsym --whole-window Mod1+Button5      workspace next
 
 # split in horizontal orientation
 bindsym Mod1+b split h
@@ -279,12 +294,6 @@ bindsym Mod1+Shift+t      exec xfce4-terminal -e $HOME/Documents/Scripts/next_wa
 
 bindsym Mod1+p            exec xfce4-terminal -e $HOME/Documents/Scripts/walltheme.sh
 bindsym Mod1+Shift+p      exec xfce4-terminal -e $HOME/Documents/Scripts/URxvt/start_wallpaper.sh
-
-bindsym Mod1+$left            workspace prev
-bindsym Mod1+$right            workspace next
-
-bindsym --whole-window Mod1+Button4      workspace prev
-bindsym --whole-window Mod1+Button5      workspace next
 
 # Numpad quickstart
 
