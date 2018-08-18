@@ -346,14 +346,15 @@ executes.
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
   (define-derived-mode anaconda-view-mode special-mode "Anaconda-View")
-  (setq default-input-method "swedish-keyboard")
-  (setq use-default-input-method t)
+  ;; (setq default-input-method "swedish-keyboard")
+  ;; (setq use-default-input-method t)
   ;; (desktop-save-mode 1)
   ;; (setq theming-modifications '(
   ;;      (flatland
   ;;       (default :background "#1f1f22")
   ;;      )
   ;; ))
+  ;; Switches to swedish keyboard in input mode
   ;; (defvar use-default-input-method t)
   ;; (make-variable-buffer-local 'use-default-input-method)
   ;; (defun activate-default-input-method ()
@@ -405,7 +406,7 @@ you should place your code here."
   (evil-leader/set-key "w W" 'ace-swap-window)
   (evil-leader/set-key "w M" 'other-window)
   (evil-leader/set-key "r r" 'ranger)
-
+  (define-key evil-motion-state-map (kbd "/") 'swiper)
 
   (global-evil-search-highlight-persist nil)
   (setq powerline-default-separator 'contour)
@@ -423,10 +424,13 @@ you should place your code here."
   ;; Sets flycheck to use c++17 as a standard...
   (setq-default flycheck-gcc-language-standard "c++17"
                 flycheck-clang-language-standard "c++17")
+  (require 'evil-matchit)
+  (global-evil-matchit-mode 1)
   (require 'evil-quickscope)
+  (global-evil-quickscope-always-mode 1)
   (global-evil-quickscope-mode 1)
   (setq evil-cross-lines 1)
-  (setq evil-quickscope-cross-lines 1)
+  (setq evil-quickscope-cross-lines nil)
   (require 'sublimity)
   (require 'sublimity-scroll)
   ;; (require 'sublimity-map)
@@ -439,6 +443,7 @@ you should place your code here."
   (spacemacs/toggle-which-key-off)
   (add-to-list 'auto-mode-alist '("\\.js\\'" . rjsx-mode))
   (spacemacs/toggle-highlight-indentation-current-column-on)
+  (evil-leader/set-key "q q" 'spacemacs/frame-killer)
   ;; Theme customization
   (defun set-hl-line-color-based-on-theme ()
     "Sets the hl-line face to have no foreground and a background
@@ -462,8 +467,6 @@ you should place your code here."
 
   (if (daemonp) (set-terminal-colors))
   (if (daemonp) (global-hl-line-mode -1))
-  (if (daemonp) (evil-leader/set-key
-                  "q q" 'spacemacs/frame-killer))
 
   ;; (if (daemonp) (global-hl-line-mode -1))
 
@@ -596,6 +599,7 @@ This function is called at the very end of Spacemacs initialization."
    '("065efdd71e6d1502877fd5621b984cded01717930639ded0e569e1724d058af8" default))
  '(evil-snipe-override-evil-repeat-keys nil)
  '(evil-want-Y-yank-to-eol t)
+ '(global-evil-search-highlight-persist nil)
  '(global-linum-mode t)
  '(js-indent-level 2)
  '(package-selected-packages

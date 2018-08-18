@@ -34,7 +34,7 @@ underline-size = 2
 underline-color = ${colors.foreground}
 
 padding-left = 2
-padding-right = 3
+padding-right = 0
 module-margin-left = 2
 module-margin-right = 2
 
@@ -62,7 +62,7 @@ tray-background = ${colors.background}
 
 modules-left = mpd
 modules-center =
-modules-right = temperature
+modules-right = xkeyboard filesystem temperature
 ; tray-position = right
 ; tray-background = ${colors.background}
 
@@ -237,7 +237,7 @@ scroll-down = playerctl next
 type = internal/temperature
 interval = 0.5
 warn-temperature = 60
-; label-font = 0
+label-font = 3
 
 format = <ramp> <label>
 ; format-underline = ${colors.foreground-alt}
@@ -267,13 +267,13 @@ ramp-foreground = ${colors.foreground-alt}
 type = custom/menu
 
 format-spacing = 1
-; format-underline = ${colors.foreground-alt}
+format-underline = ${colors.foreground-alt}
 always-centered = true
 expand-right = false
 
 label-open = "    "
 label-open-foreground = ${colors.foreground-alt}
-label-close = 
+label-close = "   "
 label-close-foreground = ${colors.foreground}
 label-separator = " "
 label-separator-foreground = ${colors.foreground-alt}
@@ -386,8 +386,18 @@ format-underline = ${colors.foreground-alt}
 type = internal/xkeyboard
 blacklist-0 = num lock
 
-label-indicator = %name%
+format = <label-layout>
+label-layout = %name%
 ; label-layout-underline = ${colors.foreground-alt}
 
-label-indicator-background = ${colors.foreground-alt}
-label-indicater-underline = ${colors.foreground-alt}
+
+[module/filesystem]
+type = internal/fs
+interval = 25
+
+mount-0 = /
+
+; label-mounted = %{F#0a81f5}%mountpoint%%{F-}: %percentage_used%%
+label-mounted = %mountpoint%: %percentage_used%%
+label-unmounted = %mountpoint% not mounted
+label-unmounted-foreground = ${colors.foreground-alt}
