@@ -151,15 +151,15 @@ values."
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(xresources
                          doom-challenger-deep
-                         doom-tron
+                         gruvbox
                          flatland
+                         doom-tron
                          doom-opera
                          doom-tomorrow-night
                          darkburn
                          darktooth
                          doom-nord
                          doom-molokai
-                         gruvbox
                          sanityinc-solarized-dark
                          birds-of-paradise-plus
                          doom-one
@@ -376,6 +376,7 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
+  (setq debug-on-error t)
   (setq x-select-enable-clipboard t)
   ;; for making undo not remove one whole insert which is truly horrible.
   (setq evil-want-fine-undo t)
@@ -427,7 +428,7 @@ you should place your code here."
   (require 'evil-matchit)
   (global-evil-matchit-mode 1)
   (require 'evil-quickscope)
-  (global-evil-quickscope-always-mode 1)
+  (global-evil-quickscope-always-mode nil)
   (global-evil-quickscope-mode 1)
   (setq evil-cross-lines 1)
   (setq evil-quickscope-cross-lines nil)
@@ -444,6 +445,7 @@ you should place your code here."
   (add-to-list 'auto-mode-alist '("\\.js\\'" . rjsx-mode))
   (spacemacs/toggle-highlight-indentation-current-column-on)
   (evil-leader/set-key "q q" 'spacemacs/frame-killer)
+  (evil-leader/set-key "q f" 'spacemacs/prompts-kill-emacs)
   ;; Theme customization
   (defun set-hl-line-color-based-on-theme ()
     "Sets the hl-line face to have no foreground and a background
@@ -452,63 +454,12 @@ you should place your code here."
                         :foreground nil
                         :background (color-lighten-name (face-background 'default) 5)))
 
-  (defun set-terminal-colors ()
-    (set-face-foreground 'font-lock-variable-name-face "color-222")
-    (set-face-foreground 'font-lock-constant-face "color-172")
-    (set-face-foreground 'font-lock-string-face "brightyellow")
-    (set-face-background 'sp-show-pair-match-face "brightblack")
-    (set-face-attribute 'region nil :background "white" :foreground "brightblack")
-    ;; (set-face-foreground 'font-lock-comment-face "color-240")
-    (set-face-foreground 'font-lock-function-name-face "brightred")
-    ;; (set-face-foreground 'font-lock-builtin-face "color-172")
-    (set-face-foreground 'font-lock-type-face "color-202")
-    ;; (set-face-foreground 'js2-function-param "yellow")
-    )
-
-  (if (daemonp) (set-terminal-colors))
-  (if (daemonp) (global-hl-line-mode -1))
-
-  ;; (if (daemonp) (global-hl-line-mode -1))
-
-  (unless (display-graphic-p)
-    (require 'evil-terminal-cursor-changer)
-    (evil-terminal-cursor-changer-activate) ; or (etcc-on)
-    )
-  (if (daemonp) (setq evil-motion-state-cursor 'box)) ; █
-  (if (daemonp) (setq evil-visual-state-cursor 'box)) ; █
-  (if (daemonp) (setq evil-normal-state-cursor 'box)) ; █
-  (if (daemonp) (setq evil-insert-state-cursor 'bar)) ; ⎸
-  (if (daemonp) (setq evil-emacs-state-cursor  'hbar)) ; _
-
-
-  (if (daemonp)
-      (add-hook 'after-make-frame-functions
-                (lambda (frame)
-                  (with-selected-frame frame
-                    (load-theme 'doom-challenger-deep t)
-                    (spacemacs/enable-transparency))))
-    )
-
-  (unless (daemonp)
-    (require 'color)
-    (set-hl-line-color-based-on-theme)
-    ;; (set-face-foreground 'font-lock-string-face "LightSteelBlue")
-    (global-hl-line-mode nil)
-    ;;Company mode dropdown
-    ;; (spacemacs/enable-transparency)
-    (let ((bg (face-attribute 'default :background)))
-      (custom-set-faces
-       `(company-tooltip ((t (:inherit default :background ,(color-lighten-name bg 2)))))
-       `(company-scrollbar-bg ((t (:background ,(color-lighten-name bg 10)))))
-       `(company-scrollbar-fg ((t (:background ,(color-lighten-name bg 5)))))
-       `(company-tooltip-selection ((t (:inherit font-lock-function-name-face))))
-       `(company-tooltip-common ((t (:inherit font-lock-constant-face))))
-       `(tide-hl-identifier-face((t (:background ,(color-lighten-name bg 10))))))
-      )
-    )
+  (require 'color)
+  (set-hl-line-color-based-on-theme)
+  (load-theme 'doom-challenger-deep t)
+  (global-hl-line-mode nil)
   ;; Needs to be last for some reason
-  (if (display-graphic-p) (load-theme 'doom-challenger-deep t))
-
+  (set-face-attribute 'region nil :background "cornsilk" :foreground "chocolate")
 
   ;;JAVASCRIPT SHIT
   (defun setup-tide-mode ()
@@ -551,8 +502,7 @@ you should place your code here."
          (typescript-mode . tide-hl-identifier-mode)
          (before-save . tide-format-before-save)))
   (add-hook 'js2-mode-hook (lambda () (setq js2-basic-offset 2)))
-  (set-face-attribute 'region nil :background "cornsilk" :foreground "chocolate")
-  (set-face-foreground 'linum "orange")
+
 )
 ;; Do Not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
@@ -617,6 +567,7 @@ This function is called at the very end of Spacemacs initialization."
  '(company-tooltip ((t (:inherit default :background "#208d16163326"))))
  '(company-tooltip-common ((t (:inherit font-lock-constant-face))))
  '(company-tooltip-selection ((t (:inherit font-lock-function-name-face))))
+ '(linum ((t (:inherit default :background "#1b283c" :foreground "orange" :strike-through nil :underline nil :slant normal :weight normal))))
  '(sp-show-pair-match-face ((t (:background "#2b303b" :weight bold))))
  '(tide-hl-identifier-face ((t (:background "#2ae33f8a5f4f")))))
 )
