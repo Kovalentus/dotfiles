@@ -31,6 +31,12 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
+     ;; ----------------------------------------------------------------
+     ;; Example of useful layers you may want to use right away.
+     ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
+     ;; <M-m f e R> (Emacs style) to install them.
+     ;; ----------------------------------------------------------------
+     helm
      markdown
      vimscript
      csv
@@ -40,12 +46,6 @@ values."
      html
      python
      ruby
-     ;; ----------------------------------------------------------------
-     ;; Example of useful layers you may want to use right away.
-     ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
-     ;; <M-m f e R> (Emacs style) to install them.
-     ;; ----------------------------------------------------------------
-     ivy
      auto-completion
      better-defaults
      emacs-lisp
@@ -53,9 +53,10 @@ values."
      c-c++
      git
      react
-     ;;evil-surround
+     typescript
+     ;; git
      ;; markdown
-     ;; org
+     org
      (shell :variables
             shell-default-height 30
             shell-default-position 'bottom)
@@ -70,17 +71,16 @@ values."
      theming
      treemacs
      evil-snipe
-     ;; keyboard-layout
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
-   ;; packages, then consider creating a layer. You can also put thehttps://raw.githubusercontent.com/tarao/elisp/master/linum%2B.el
+   ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '(ws-butler sublimity google-this impatient-mode theming xresources-theme color rjsx-mode doom-themes evil-terminal-cursor-changer web-mode ranger evil-quickscope)
+   dotspacemacs-additional-packages '(ws-butler sublimity google-this impatient-mode theming xresources-theme color rjsx-mode doom-themes evil-terminal-cursor-changer web-mode ranger evil-quickscope tide)
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
-   dotspacemacs-excluded-packages '(doom-challenger-deep-theme doom-city-lights-theme doom-dracula-theme doom-nord-theme doom-opera-theme)
+   dotspacemacs-excluded-packages '()
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
    ;; `used-only' installs only explicitly used packages and uninstall any
@@ -105,7 +105,7 @@ values."
    ;; This variable has no effect if Emacs is launched with the parameter
    ;; `--insecure' which forces the value of this variable to nil.
    ;; (default t)
-   dotspacemacs-elpa-https nil
+   dotspacemacs-elpa-https t
    ;; Maximum allowed time in seconds to contact an ELPA repository.
    dotspacemacs-elpa-timeout 5
    dotspacemacs-mode-line-theme 'vim-powerline
@@ -149,17 +149,17 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(xresources
+   dotspacemacs-themes '(doom-nord
+                         xresources
                          doom-challenger-deep
-                         doom-tron
+                         gruvbox
                          flatland
+                         doom-tron
                          doom-opera
                          doom-tomorrow-night
                          darkburn
                          darktooth
-                         doom-nord
                          doom-molokai
-                         gruvbox
                          sanityinc-solarized-dark
                          birds-of-paradise-plus
                          doom-one
@@ -168,18 +168,13 @@ values."
                          doom-peacock
                          gruber-darker
                          )
-   ;;
-   ;; colorsarenice-light
-   ;; darktooth
-   ;; flatland
-   ;; gruvbox
-   ;;;; If non nil the cursor color matches the state color in GUI Emacs.
-   dotspacemacs-colorize-cursor-according-to-state t
+   ;; If non nil the cursor color matches the state color in GUI Emacs.
+   dotspacemacs-colorize-cursor-according-to-state nil
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
-   dotspacemacs-default-font '("Source Code Pro Bold"
-                               :size 20
-                               :weight normal
+   dotspacemacs-default-font '("Source Code Pro"
+                               :size 18
+                               :weight demibold
                                :width normal
                                :powerline-scale 1.1)
    ;; The leader key
@@ -204,7 +199,7 @@ values."
    ;; and TAB or <C-m> and RET.
    ;; In the terminal, these pairs are generally indistinguishable, so this only
    ;; works in the GUI. (default nil)
-   dotspacemacs-distinguish-gui-tab nil
+   dotspacemacs-distinguish-gui-tab t
    ;; If non nil `Y' is remapped to `y$' in Evil states. (default nil)
    dotspacemacs-remap-Y-to-y$ t
    ;; If non-nil, the shift mappings `<' and `>' retain visual state if used
@@ -244,7 +239,7 @@ values."
    ;; `left', or `right'. (default 'bottom)
    dotspacemacs-helm-position 'bottom
    ;; Controls fuzzy matching in helm. If set to `always', force fuzzy matching
-   ;; in all non-asynchronous ources. If set to `source', preserve individual
+   ;; in all non-asynchronous sources. If set to `source', preserve individual
    ;; source settings. Else, disable fuzzy matching in all sources.
    ;; (default 'always)
    dotspacemacs-helm-use-fuzzy 'always
@@ -272,7 +267,7 @@ values."
    ;; If non nil the frame is maximized when Emacs starts up.
    ;; Takes effect only if `dotspacemacs-fullscreen-at-startup' is nil.
    ;; (default nil) (Emacs 24.4+ only)
-   dotspacemacs-maximized-at-startup t
+   dotspacemacs-maximized-at-startup nil
    ;; A value from the range (0..100), in increasing opacity, which describes
    ;; the transparency level of a frame when it's active or selected.
    ;; Transparency can be toggled through `toggle-transparency'. (default 90)
@@ -311,7 +306,7 @@ values."
    ;; If non-nil smartparens-strict-mode will be enabled in programming modes.
    ;; (default nil)
    dotspacemacs-smartparens-strict-mode nil
-   ;; If non-nil pressing the closing parenthesis `)' key in insert mode passes
+   ;; If non-nil pressing the cl(custom-set-variables)osing parenthesis `)' key in insert mode passes
    ;; over any automatically added closing parenthesis, bracket, quote, etc…
    ;; This can be temporary disabled by pressing `C-q' before `)'. (default nil)
    dotspacemacs-smart-closing-parenthesis nil
@@ -335,7 +330,7 @@ values."
    ;; `trailing' to delete only the whitespace at end of lines, `changed'to
    ;; delete only whitespace for changed lines or `nil' to disable cleanup.
    ;; (default nil)
-   dotspacemacs-whitespace-cleanup 'changed
+   dotspacemacs-whitespace-cleanup 'all
    ))
 
 (defun dotspacemacs/user-init ()
@@ -345,30 +340,8 @@ executes.
  This function is mostly useful for variables that need to be set
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
-  (define-derived-mode anaconda-view-mode special-mode "Anaconda-View")
-  ;; (setq default-input-method "swedish-keyboard")
-  ;; (setq use-default-input-method t)
-  ;; (desktop-save-mode 1)
-  ;; (setq theming-modifications '(
-  ;;      (flatland
-  ;;       (default :background "#1f1f22")
-  ;;      )
-  ;; ))
-  ;; Switches to swedish keyboard in input mode
-  ;; (defvar use-default-input-method t)
-  ;; (make-variable-buffer-local 'use-default-input-method)
-  ;; (defun activate-default-input-method ()
-  ;;   (interactive)
-  ;;   (if use-default-input-method
-  ;;       (activate-input-method default-input-method)
-  ;;     (inactivate-input-method)))
-  ;; (add-hook 'after-change-major-mode-hook 'activate-default-input-method)
-  ;; (add-hook 'minibuffer-setup-hook 'activate-default-input-method)
-  ;; (defun inactivate-default-input-method ()
-  ;;   (setq use-default-input-method nil))
-  ;; (add-hook 'c-mode-hook 'inactivate-default-input-method)
+  )
 
-)
 (defun dotspacemacs/user-config ()
   "Configuration function for user code.
 This function is called at the very end of Spacemacs initialization after
@@ -379,10 +352,6 @@ you should place your code here."
   (setq x-select-enable-clipboard t)
   ;; for making undo not remove one whole insert which is truly horrible.
   (setq evil-want-fine-undo t)
-  ;; according to link below, fixing the auto yank into buffer on click
-  ;; https://github.com/syl20bnr/spacemacs/issues/5435
-  (add-hook 'spacemacs-buffer-mode-hook (lambda () (set (make-local-variable 'mouse-1-click-follows-link) nil)))
-
   ;;Custom keybinds
   ;;Easier for swedish keyboard
   (global-set-key (kbd "C-ö") (kbd "{") )
@@ -408,7 +377,8 @@ you should place your code here."
   (evil-leader/set-key "r r" 'ranger)
   (define-key evil-motion-state-map (kbd "/") 'swiper)
 
-  (global-evil-search-highlight-persist nil)
+  ;;Symbol definition is void
+  ;; (global-evil-search-highlight-persist nil)
   (setq powerline-default-separator 'contour)
   ;; (spacemacs/toggle-display-time-on)
   (spacemacs/toggle-mode-line-battery-off)
@@ -443,7 +413,9 @@ you should place your code here."
   (spacemacs/toggle-which-key-off)
   (add-to-list 'auto-mode-alist '("\\.js\\'" . rjsx-mode))
   (spacemacs/toggle-highlight-indentation-current-column-on)
-  (evil-leader/set-key "q q" 'spacemacs/frame-killer)
+  ;; (evil-leader/set-key "q q" 'spacemacs/frame-killer)
+  ;; (evil-leader/set-key "q f" 'spacemacs/prompts-kill-emacs)
+
   ;; Theme customization
   (defun set-hl-line-color-based-on-theme ()
     "Sets the hl-line face to have no foreground and a background
@@ -452,65 +424,16 @@ you should place your code here."
                         :foreground nil
                         :background (color-lighten-name (face-background 'default) 5)))
 
-  (defun set-terminal-colors ()
-    (set-face-foreground 'font-lock-variable-name-face "color-222")
-    (set-face-foreground 'font-lock-constant-face "color-172")
-    (set-face-foreground 'font-lock-string-face "brightyellow")
-    (set-face-background 'sp-show-pair-match-face "brightblack")
-    (set-face-attribute 'region nil :background "white" :foreground "brightblack")
-    ;; (set-face-foreground 'font-lock-comment-face "color-240")
-    (set-face-foreground 'font-lock-function-name-face "brightred")
-    ;; (set-face-foreground 'font-lock-builtin-face "color-172")
-    (set-face-foreground 'font-lock-type-face "color-202")
-    ;; (set-face-foreground 'js2-function-param "yellow")
-    )
-
-  (if (daemonp) (set-terminal-colors))
-  (if (daemonp) (global-hl-line-mode -1))
-
-  ;; (if (daemonp) (global-hl-line-mode -1))
-
-  (unless (display-graphic-p)
-    (require 'evil-terminal-cursor-changer)
-    (evil-terminal-cursor-changer-activate) ; or (etcc-on)
-    )
-  (if (daemonp) (setq evil-motion-state-cursor 'box)) ; █
-  (if (daemonp) (setq evil-visual-state-cursor 'box)) ; █
-  (if (daemonp) (setq evil-normal-state-cursor 'box)) ; █
-  (if (daemonp) (setq evil-insert-state-cursor 'bar)) ; ⎸
-  (if (daemonp) (setq evil-emacs-state-cursor  'hbar)) ; _
-
-
-  (if (daemonp)
-      (add-hook 'after-make-frame-functions
-                (lambda (frame)
-                  (with-selected-frame frame
-                    (load-theme 'doom-challenger-deep t)
-                    (spacemacs/enable-transparency))))
-    )
-
-  (unless (daemonp)
-    (require 'color)
-    (set-hl-line-color-based-on-theme)
-    ;; (set-face-foreground 'font-lock-string-face "LightSteelBlue")
-    (global-hl-line-mode nil)
-    ;;Company mode dropdown
-    ;; (spacemacs/enable-transparency)
-    (let ((bg (face-attribute 'default :background)))
-      (custom-set-faces
-       `(company-tooltip ((t (:inherit default :background ,(color-lighten-name bg 2)))))
-       `(company-scrollbar-bg ((t (:background ,(color-lighten-name bg 10)))))
-       `(company-scrollbar-fg ((t (:background ,(color-lighten-name bg 5)))))
-       `(company-tooltip-selection ((t (:inherit font-lock-function-name-face))))
-       `(company-tooltip-common ((t (:inherit font-lock-constant-face))))
-       `(tide-hl-identifier-face((t (:background ,(color-lighten-name bg 10))))))
-      )
-    )
+  (require 'color)
+  (set-hl-line-color-based-on-theme)
+  ;; (load-theme 'doom-challenger-deep t)
+  (global-hl-line-mode nil)
   ;; Needs to be last for some reason
-  (if (display-graphic-p) (load-theme 'doom-challenger-deep t))
+  (set-face-attribute 'region nil :background "cornsilk" :foreground "chocolate")
+  (set-face-background 'default "#1b283c")
+  ;; (spacemacs/set-state-faces 'normal "#eae5d4")
 
-
-  ;;JAVASCRIPT SHIT
+  ;;TSX
   (defun setup-tide-mode ()
     (interactive)
     (tide-setup)
@@ -523,16 +446,6 @@ you should place your code here."
     ;; `M-x package-install [ret] company`
     (company-mode +1))
 
-  ;;TSX
-  (require 'web-mode)
-  (add-to-list 'auto-mode-alist '("\\.tsx\\'" . web-mode))
-  (add-hook 'web-mode-hook
-            (lambda ()
-              (when (string-equal "tsx" (file-name-extension buffer-file-name))
-                (setup-tide-mode))))
-  ;; enable typescript-tslint checker
-  (flycheck-add-mode 'typescript-tslint 'web-mode)
-
   ;; aligns annotation to the right hand side
   (setq company-tooltip-align-annotations t)
 
@@ -540,49 +453,52 @@ you should place your code here."
   (add-hook 'before-save-hook 'tide-format-before-save)
 
   (add-hook 'typescript-mode-hook #'setup-tide-mode)
+  (require 'web-mode)
+  (add-to-list 'auto-mode-alist '("\\.tsx\\'" . web-mode))
+  (add-hook 'web-mode-hook
+            (lambda ()
+              (when (string-equal "tsx" (file-name-extension buffer-file-name))
+                (setup-tide-mode))))
+  ;; ;; enable typescript-tslint checker
   (add-hook 'js2-mode-hook #'setup-tide-mode)
-  ;; (add-hook 'rjsx-mode-hook #'setup-tide-mode)
-  ;; configure javascript-tide checker to run after your default javascript checker
+  ;; ;; configure javascript-tide checker to run after your default javascript checker
+  (require 'web-mode)
+  (add-to-list 'auto-mode-alist '("\\.jsx\\'" . web-mode))
+  (add-hook 'web-mode-hook
+            (lambda ()
+              (when (string-equal "jsx" (file-name-extension buffer-file-name))
+                (setup-tide-mode))))
+  ;; ;; configure jsx-tide checker to run after your default jsx checker
+  ;; (flycheck-add-mode 'typescript-tslint 'web-mode)
   ;; (flycheck-add-next-checker 'javascript-eslint 'javascript-tide 'append)
+  ;; (flycheck-add-mode 'javascript-eslint 'web-mode)
+  ;; (flycheck-add-next-checker 'javascript-eslint 'jsx-tide 'append)
+
   (use-package tide
-  :ensure t
-  :after (typescript-mode company flycheck)
-  :hook ((typescript-mode . tide-setup)
-         (typescript-mode . tide-hl-identifier-mode)
-         (before-save . tide-format-before-save)))
+    :ensure t
+    :after (typescript-mode company flycheck)
+    :hook ((typescript-mode . tide-setup)
+           (typescript-mode . tide-hl-identifier-mode)
+           (before-save . tide-format-before-save)))
+
   (add-hook 'js2-mode-hook (lambda () (setq js2-basic-offset 2)))
-  (set-face-attribute 'region nil :background "cornsilk" :foreground "chocolate")
-  (set-face-foreground 'linum "orange")
-)
-;; Do Not write anything past this comment. This is where Emacs will
+  )
+
+;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ansi-color-names-vector
-   ["#0a0814" "#f2241f" "#67b11d" "#b1951d" "#4f97d7" "#a31db1" "#28def0" "#b2b2b2"])
- '(custom-safe-themes
-   '("065efdd71e6d1502877fd5621b984cded01717930639ded0e569e1724d058af8" default))
- '(evil-want-Y-yank-to-eol t)
- '(global-linum-mode t)
  '(package-selected-packages
-   '(treemacs-projectile treemacs-evil treemacs mmm-mode markdown-toc markdown-mode gh-md evil-terminal-cursor-changer vimrc-mode dactyl-mode csv-mode phpunit phpcbf php-extras php-auto-yasnippets drupal-mode php-mode typescript-mode skewer-mode json-snatcher json-reformat multiple-cursors js2-mode simple-httpd haml-mode fringe-helper git-gutter+ git-gutter pos-tip flycheck magit magit-popup git-commit ghub let-alist with-editor autothemer web-completion-data dash-functional tern company inf-ruby yasnippet anaconda-mode pythonic auto-complete nlinum-relative nlinum evil-quickscope sublimity impatient-mode htmlize google-this conda zenburn-theme zen-and-art-theme yapfify xterm-color xkcd ws-butler winum white-sand-theme which-key wgrep web-mode web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package unfill underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme toxi-theme toc-org tide tao-theme tangotango-theme tango-plus-theme tango-2-theme tagedit sunny-day-theme sublime-themes subatomic256-theme subatomic-theme sql-indent spaceline spacegray-theme soothe-theme solarized-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme smex smeargle slim-mode shell-pop seti-theme scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe reverse-theme restart-emacs request rebecca-theme rbenv rake rainbow-delimiters railscasts-theme pyvenv pytest pyenv-mode py-isort purple-haze-theme pug-mode professional-theme popwin planet-theme pip-requirements phoenix-dark-pink-theme phoenix-dark-mono-theme persp-mode paradox orgit organic-green-theme org-bullets open-junk-file omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme noctilux-theme neotree naquadah-theme mwim mustang-theme multi-term move-text monokai-theme monochrome-theme molokai-theme moe-theme minitest minimal-theme material-theme majapahit-theme magit-gitflow madhat2r-theme macrostep lush-theme lorem-ipsum livid-mode live-py-mode linum-relative link-hint light-soap-theme less-css-mode json-mode js2-refactor js-doc jbeans-theme jazz-theme ivy-hydra ir-black-theme inkpot-theme indent-guide hy-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation heroku-theme hemisu-theme helm-make hc-zenburn-theme gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme google-translate golden-ratio gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ ggtags gandalf-theme fuzzy flycheck-pos-tip flx-ido flatui-theme flatland-theme fill-column-indicator farmhouse-theme fancy-battery eyebrowse expand-region exotica-theme exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-commentary evil-args evil-anzu eval-sexp-fu espresso-theme eshell-z eshell-prompt-extras esh-help emmet-mode elisp-slime-nav dumb-jump dracula-theme django-theme disaster diminish diff-hl define-word darktooth-theme darkokai-theme darkmine-theme darkburn-theme dakrone-theme cython-mode cyberpunk-theme counsel-projectile company-web company-tern company-statistics company-c-headers company-anaconda column-enforce-mode color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized coffee-mode cmake-mode clues-theme clean-aindent-mode clang-format chruby cherry-blossom-theme busybee-theme bundler bubbleberry-theme birds-of-paradise-plus-theme badwolf-theme auto-yasnippet auto-highlight-symbol auto-compile apropospriate-theme anti-zenburn-theme ample-zen-theme ample-theme alect-themes aggressive-indent afternoon-theme adaptive-wrap ace-window ace-link ac-ispell))
- '(pos-tip-background-color "#36473A")
- '(pos-tip-foreground-color "#FFFFC8"))
+   '(ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump f dash s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:background nil))))
- '(company-scrollbar-bg ((t (:background "#32c122704fc2"))))
- '(company-scrollbar-fg ((t (:background "#27601ab83de1"))))
- '(company-tooltip ((t (:inherit default :background "#208d16163326"))))
- '(company-tooltip-common ((t (:inherit font-lock-constant-face))))
- '(company-tooltip-selection ((t (:inherit font-lock-function-name-face))))
- '(sp-show-pair-match-face ((t (:background "#2b303b" :weight bold)))))
+ )
 (defun dotspacemacs/emacs-custom-settings ()
   "Emacs custom settings.
 This is an auto-generated function, do not modify its content directly, use
@@ -593,30 +509,18 @@ This function is called at the very end of Spacemacs initialization."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ansi-color-names-vector
-   ["#0a0814" "#f2241f" "#67b11d" "#b1951d" "#4f97d7" "#a31db1" "#28def0" "#b2b2b2"])
- '(custom-safe-themes
-   '("065efdd71e6d1502877fd5621b984cded01717930639ded0e569e1724d058af8" default))
- '(evil-snipe-override-evil-repeat-keys nil)
- '(evil-want-Y-yank-to-eol t)
- '(global-evil-search-highlight-persist nil)
- '(global-linum-mode t)
- '(js-indent-level 2)
  '(package-selected-packages
-   '(treemacs-projectile treemacs-evil treemacs mmm-mode markdown-toc markdown-mode gh-md evil-terminal-cursor-changer vimrc-mode dactyl-mode csv-mode phpunit phpcbf php-extras php-auto-yasnippets drupal-mode php-mode typescript-mode skewer-mode json-snatcher json-reformat multiple-cursors js2-mode simple-httpd haml-mode fringe-helper git-gutter+ git-gutter pos-tip flycheck magit magit-popup git-commit ghub let-alist with-editor autothemer web-completion-data dash-functional tern company inf-ruby yasnippet anaconda-mode pythonic auto-complete nlinum-relative nlinum evil-quickscope sublimity impatient-mode htmlize google-this conda zenburn-theme zen-and-art-theme yapfify xterm-color xkcd ws-butler winum white-sand-theme which-key wgrep web-mode web-beautify volatile-highlights vi-tilde-fringe uuidgen use-package unfill underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme toxi-theme toc-org tide tao-theme tangotango-theme tango-plus-theme tango-2-theme tagedit sunny-day-theme sublime-themes subatomic256-theme subatomic-theme sql-indent spaceline spacegray-theme soothe-theme solarized-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme smex smeargle slim-mode shell-pop seti-theme scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe reverse-theme restart-emacs request rebecca-theme rbenv rake rainbow-delimiters railscasts-theme pyvenv pytest pyenv-mode py-isort purple-haze-theme pug-mode professional-theme popwin planet-theme pip-requirements phoenix-dark-pink-theme phoenix-dark-mono-theme persp-mode paradox orgit organic-green-theme org-bullets open-junk-file omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme noctilux-theme neotree naquadah-theme mwim mustang-theme multi-term move-text monokai-theme monochrome-theme molokai-theme moe-theme minitest minimal-theme material-theme majapahit-theme magit-gitflow madhat2r-theme macrostep lush-theme lorem-ipsum livid-mode live-py-mode linum-relative link-hint light-soap-theme less-css-mode json-mode js2-refactor js-doc jbeans-theme jazz-theme ivy-hydra ir-black-theme inkpot-theme indent-guide hy-mode hungry-delete hl-todo highlight-parentheses highlight-numbers highlight-indentation heroku-theme hemisu-theme helm-make hc-zenburn-theme gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme google-translate golden-ratio gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe git-gutter-fringe+ ggtags gandalf-theme fuzzy flycheck-pos-tip flx-ido flatui-theme flatland-theme fill-column-indicator farmhouse-theme fancy-battery eyebrowse expand-region exotica-theme exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-ediff evil-commentary evil-args evil-anzu eval-sexp-fu espresso-theme eshell-z eshell-prompt-extras esh-help emmet-mode elisp-slime-nav dumb-jump dracula-theme django-theme disaster diminish diff-hl define-word darktooth-theme darkokai-theme darkmine-theme darkburn-theme dakrone-theme cython-mode cyberpunk-theme counsel-projectile company-web company-tern company-statistics company-c-headers company-anaconda column-enforce-mode color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized coffee-mode cmake-mode clues-theme clean-aindent-mode clang-format chruby cherry-blossom-theme busybee-theme bundler bubbleberry-theme birds-of-paradise-plus-theme badwolf-theme auto-yasnippet auto-highlight-symbol auto-compile apropospriate-theme anti-zenburn-theme ample-zen-theme ample-theme alect-themes aggressive-indent afternoon-theme adaptive-wrap ace-window ace-link ac-ispell))
- '(pos-tip-background-color "#36473A")
- '(pos-tip-foreground-color "#FFFFC8"))
+   '(zenburn-theme zen-and-art-theme yasnippet-snippets yapfify xterm-color xresources-theme xkcd white-sand-theme web-mode web-beautify vimrc-mode unfill underwater-theme ujelly-theme twilight-theme twilight-bright-theme twilight-anti-bright-theme treemacs-projectile treemacs-evil treemacs ht pfuture toxi-theme tide typescript-mode tao-theme tangotango-theme tango-plus-theme tango-2-theme tagedit symon sunny-day-theme sublimity sublime-themes subatomic256-theme subatomic-theme string-inflection sql-indent spaceline-all-the-icons spacegray-theme soothe-theme solarized-theme soft-stone-theme soft-morning-theme soft-charcoal-theme smyx-theme smeargle slim-mode shell-pop seti-theme seeing-is-believing scss-mode sass-mode rvm ruby-tools ruby-test-mode ruby-refactor ruby-hash-syntax rubocop rspec-mode robe rjsx-mode reverse-theme rebecca-theme rbenv ranger rake railscasts-theme pyvenv pytest pyenv-mode py-isort purple-haze-theme pug-mode professional-theme prettier-js planet-theme pippel pipenv pip-requirements phpunit phpcbf php-extras php-auto-yasnippets phoenix-dark-pink-theme phoenix-dark-mono-theme password-generator overseer orgit organic-green-theme org-projectile org-category-capture org-present org-pomodoro alert log4e gntp org-mime org-download org-brain omtose-phellack-theme oldlace-theme occidental-theme obsidian-theme noctilux-theme naquadah-theme nameless mwim mustang-theme multi-term monokai-theme monochrome-theme molokai-theme moe-theme mmm-mode minitest minimal-theme material-theme markdown-toc markdown-mode majapahit-theme magit-svn magit-gitflow madhat2r-theme lush-theme livid-mode skewer-mode live-py-mode light-soap-theme kaolin-themes json-navigator hierarchy json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc jbeans-theme jazz-theme ir-black-theme inkpot-theme importmagic epc ctable concurrent deferred impatient-mode simple-httpd htmlize heroku-theme hemisu-theme helm-xref helm-rtags helm-pydoc helm-purpose window-purpose imenu-list helm-gtags helm-gitignore helm-css-scss helm-company helm-c-yasnippet hc-zenburn-theme haml-mode gruvbox-theme gruber-darker-theme grandshell-theme gotham-theme google-this google-c-style gnuplot gitignore-templates gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gh-md ggtags gandalf-theme fuzzy flycheck-rtags flycheck-pos-tip pos-tip flycheck flatui-theme flatland-theme farmhouse-theme eziam-theme exotica-theme evil-terminal-cursor-changer evil-snipe evil-quickscope evil-org evil-magit magit magit-popup git-commit ghub with-editor evil-lion evil-goggles evil-commentary evil-cleverparens paredit espresso-theme eshell-z eshell-prompt-extras esh-help emmet-mode editorconfig drupal-mode dracula-theme doom-themes all-the-icons memoize django-theme disaster diff-hl darktooth-theme autothemer darkokai-theme darkmine-theme darkburn-theme dakrone-theme dactyl-mode cython-mode cyberpunk-theme csv-mode counsel-projectile counsel swiper ivy company-web web-completion-data company-tern dash-functional tern company-statistics company-rtags rtags company-php ac-php-core xcscope php-mode company-c-headers company-anaconda company color-theme-sanityinc-tomorrow color-theme-sanityinc-solarized clues-theme clang-format chruby cherry-blossom-theme centered-cursor-mode busybee-theme bundler inf-ruby bubbleberry-theme browse-at-remote birds-of-paradise-plus-theme badwolf-theme auto-yasnippet yasnippet apropospriate-theme anti-zenburn-theme anaconda-mode pythonic ample-zen-theme ample-theme alect-themes afternoon-theme ac-ispell auto-complete font-lock+ dotenv-mode ws-butler winum which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint indent-guide hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump f dash s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:background nil))))
- '(company-scrollbar-bg ((t (:background "#32c122704fc2"))))
- '(company-scrollbar-fg ((t (:background "#27601ab83de1"))))
- '(company-tooltip ((t (:inherit default :background "#208d16163326"))))
- '(company-tooltip-common ((t (:inherit font-lock-constant-face))))
- '(company-tooltip-selection ((t (:inherit font-lock-function-name-face))))
- '(sp-show-pair-match-face ((t (:background "#2b303b" :weight bold))))
- '(tide-hl-identifier-face ((t (:background "#2ae33f8a5f4f")))))
+ '(highlight ((t (:background "#2d4365" :foreground "#191C25")))))
 )
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
