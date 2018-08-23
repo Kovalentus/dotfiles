@@ -19,12 +19,9 @@ secondary = ${xrdb:color2:#222}
 alert = ${xrdb:color3:#222}
 
 [bar/top]
-; dpi = 90
-monitor = eDP-1-1
 bottom = false
 width = 100%
-height = 28
-; radius = 10
+height = 25
 line-size = 0
 offset-x =
 offset-y =
@@ -34,15 +31,12 @@ underline-size = 2
 underline-color = ${colors.foreground}
 
 padding-left = 2
-padding-right = 3
-module-margin-left = 2
-module-margin-right = 2
+padding-right = 0
+module-margin-left = 1
+module-margin-right = 1
 
-; font-0 = Noto:pixelsize=16;2
-; font-0 = Playfair Display:pixelsize=16:weight=bold;2
 font-0 = SFNS Display:pixelsize=14;2
-; font-0 = SFNS Display:pixelsize=16:weight=bold;2
-font-1 = Font Awesome 5 Free:pixelsize=15;3
+font-1 = Font Awesome 5 Free:pixelsize=12;3
 font-2 = Material Icons:pixelsize=13;3
 font-3 = SpaceMono Nerd Font Mono:pixelsize=13;5
 font-4 = Weather Icons:size=16;4
@@ -56,25 +50,30 @@ modules-center = date
 modules-right = volume powermenu
 tray-position = left
 tray-background = ${colors.background}
+separator = │
+; border-size = 2
+; border-color = ${colors.foreground}
 
 [bar/bot]
 
 modules-left = mpd
 modules-center = spotify
-modules-right = temperature battery
-; tray-position = right
-; tray-background = ${colors.background}
+modules-right = xkeyboard filesystem temperature battery
+separator = │
 
-monitor = eDP-1-1
+; monitor = HDMI-1-2
+; monitor = eDP1-1
+border-top-size = 2
+border-top-color = ${colors.foreground}
+
 bottom = true
 line-size = 0
 ; width = 1860
 width = 100%
-height = 30
-; offset-x = 30
+height = 25
 offset-x = 0
 offset-y =
-background =
+background = ${colors.background}
 foreground = ${colors.foreground}
 underline-size = 2
 underline-color = ${colors.foreground}
@@ -85,15 +84,15 @@ module-margin-left = 2
 module-margin-right = 2
 
 font-0 = SFNS Display:pixelsize=14;2
-font-1 = Font Awesome 5 Free:pixelsize=15;3
-font-2 = Material Icons:pixelsize=13;3
+font-1 = Font Awesome 5 Free:pixelsize=12;3
+font-2 = Material Icons:pixelsize=10;3
 font-3 = SpaceMono Nerd Font Mono:pixelsize=13;5
 font-4 = Weather Icons:size=16;4
 font-5 = Font Awesome 5 Brands:pixelsize=15;2
 font-6 = Source Code Pro:pixelsize=16;2
 
 fixed-center = true
-override-redirect = true
+override-redirect = false
 wm-restack = i3
 
 
@@ -136,7 +135,7 @@ strip-wsnumbers = true
 ; Only show workspaces on the same output as the bar
 ;pin-workspaces = true
 
-label-mode-padding = 2
+label-mode-padding = 0
 label-mode-foreground = ${colors.background}
 label-mode-background = ${colors.primary}
 
@@ -204,15 +203,15 @@ label-muted-font = 0
 ; label-muted-underline = ${colors.foreground-alt}
 
 bar-volume-width = 10
-bar-volume-foreground-0 = ${colors.primary}
-bar-volume-foreground-1 = ${colors.primary}
-bar-volume-foreground-2 = ${colors.primary}
-bar-volume-foreground-3 = ${colors.primary}
-bar-volume-foreground-4 = ${colors.primary}
+bar-volume-foreground-0 = #A4C7A9
+bar-volume-foreground-1 = #A4C7A9
+bar-volume-foreground-2 = #A4C7A9
+bar-volume-foreground-3 = #A4C7A9
+bar-volume-foreground-4 = #A4C7A9
 bar-volume-foreground-5 = #f5a70a
-bar-volume-foreground-6 = #ff5555
+bar-volume-foreground-6 = #f5a70a
 bar-volume-gradient = false
-bar-volume-indicator = │
+bar-volume-indicator = |
 bar-volume-indicator-font = 0
 ; bar-volume-indicator-foreground = #ff
 bar-volume-fill = ─
@@ -271,17 +270,18 @@ expand-right = false
 
 label-open = "    "
 label-open-foreground = ${colors.foreground-alt}
-label-close = 
+label-close = "    "
 label-close-foreground = ${colors.foreground}
 label-separator = " "
 label-separator-foreground = ${colors.foreground-alt}
 
-menu-0-0 = | 
+menu-0-0 =  
 menu-0-0-exec = i3-msg exit
 menu-0-1 = " "
 menu-0-1-exec = reboot
-menu-0-2 =  |
+menu-0-2 =    │
 menu-0-2-exec = systemctl poweroff
+; menu-0-0-underline = ${colors.foreground-alt}
 
 [module/battery]
 type = internal/battery
@@ -307,7 +307,7 @@ animation-charging-0 = 
 animation-charging-1 = 
 animation-charging-2 = 
 animation-charging-3 = 
-animation-charging-framerate = 150
+animation-charging-framerate = 750
 
 animation-discharging-0 = 
 animation-discharging-1 = 
@@ -348,6 +348,7 @@ icon-stop = 
 icon-play = 
 icon-pause = 
 icon-next = 
+icon-font = 7
 
 label-song-maxlen = 25
 label-song-ellipsis = true
@@ -383,8 +384,16 @@ format-underline = ${colors.foreground-alt}
 type = internal/xkeyboard
 blacklist-0 = num lock
 
-label-indicator = %name%
-; label-layout-underline = ${colors.foreground-alt}
+format = <label-layout>
+label-layout =  %name%
 
-label-indicator-background = ${colors.foreground-alt}
-label-indicater-underline = ${colors.foreground-alt}
+[module/filesystem]
+type = internal/fs
+interval = 25
+
+mount-0 = /
+
+; label-mounted = %{F#0a81f5}%mountpoint%%{F-}: %percentage_used%%
+label-mounted =  %percentage_used%%
+label-unmounted = %mountpoint% not mounted
+label-unmounted-foreground = ${colors.foreground-alt}

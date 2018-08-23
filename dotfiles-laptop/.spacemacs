@@ -316,7 +316,7 @@ values."
    dotspacemacs-highlight-delimiters 'all
    ;; If non nil, advise quit functions to keep server open when quitting.
    ;; (default nil)
-   dotspacemacs-persistent-server nil
+   dotspacemacs-persistent-server t
    ;; List of search tool executable names. Spacemacs uses the first installed
    ;; tool of the list. Supported tools are `ag', `pt', `ack' and `grep'.
    ;; (default '("ag" "pt" "ack" "grep"))
@@ -340,6 +340,7 @@ executes.
  This function is mostly useful for variables that need to be set
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
+  (server-start)
   )
 
 (defun dotspacemacs/user-config ()
@@ -413,8 +414,8 @@ you should place your code here."
   (spacemacs/toggle-which-key-off)
   (add-to-list 'auto-mode-alist '("\\.js\\'" . rjsx-mode))
   (spacemacs/toggle-highlight-indentation-current-column-on)
-  ;; (evil-leader/set-key "q q" 'spacemacs/frame-killer)
-  ;; (evil-leader/set-key "q f" 'spacemacs/prompts-kill-emacs)
+  (evil-leader/set-key "q q" 'spacemacs/frame-killer)
+  (evil-leader/set-key "q f" 'spacemacs/prompts-kill-emacs)
 
   ;; Theme customization
   (defun set-hl-line-color-based-on-theme ()
@@ -422,7 +423,8 @@ you should place your code here."
     that is 5% lighter than the default face's background."
     (set-face-attribute 'hl-line nil
                         :foreground nil
-                        :background (color-lighten-name (face-background 'default) 5)))
+                        ;; :background #273a57(color-lighten-name (face-background 'default) 5)))
+                        :background "#273a57"))
 
   (require 'color)
   (set-hl-line-color-based-on-theme)
@@ -431,7 +433,12 @@ you should place your code here."
   ;; Needs to be last for some reason
   (set-face-attribute 'region nil :background "cornsilk" :foreground "chocolate")
   (set-face-background 'default "#1b283c")
-  ;; (spacemacs/set-state-faces 'normal "#eae5d4")
+  (set-face-background 'highlight "#273a57")
+  (set-face-foreground 'highlight "#273a57")
+  (set-face-background 'cursor "#eae5d4")
+  (set-face-foreground 'font-lock-variable-name-face "#A4C7A9")
+  (set-face-foreground 'font-lock-constant-face "#A4C7A9")
+  (set-face-foreground 'font-lock-string-face "#CBB1A4")
 
   ;;TSX
   (defun setup-tide-mode ()
@@ -484,6 +491,7 @@ you should place your code here."
   (add-hook 'js2-mode-hook (lambda () (setq js2-basic-offset 2)))
   )
 
+
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
 (custom-set-variables
@@ -516,7 +524,8 @@ This function is called at the very end of Spacemacs initialization."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(highlight ((t (:background "#2d4365" :foreground "#191C25")))))
+ '(highlight ((t (:background "#2d4365" :foreground "#191C25"))))
+ '(highlight-numbers-number ((t (:inherit bold :foreground "#e6dcb9")))))
 )
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
