@@ -271,11 +271,11 @@ values."
    ;; A value from the range (0..100), in increasing opacity, which describes
    ;; the transparency level of a frame when it's active or selected.
    ;; Transparency can be toggled through `toggle-transparency'. (default 90)
-   dotspacemacs-active-transparency 85
+   dotspacemacs-active-transparency 90
    ;; A value from the range (0..100), in increasing opacity, which describes
    ;; the transparency level of a frame when it's inactive or deselected.
    ;; Transparency can be toggled through `toggle-transparency'. (default 90)
-   dotspacemacs-inactive-transparency 75
+   dotspacemacs-inactive-transparency 85
    ;; If non nil show the titles of transient states. (default t)
    dotspacemacs-show-transient-state-title t
    ;; If non nil show the color guide hint for transient state keys. (default t)
@@ -429,6 +429,7 @@ you should place your code here."
   (require 'color)
   (set-hl-line-color-based-on-theme)
   ;; (load-theme 'doom-challenger-deep t)
+  (spacemacs/enable-transparency)
   (global-hl-line-mode nil)
   ;; Needs to be last for some reason
   (set-face-attribute 'region nil :background "cornsilk" :foreground "chocolate")
@@ -439,6 +440,7 @@ you should place your code here."
   (set-face-foreground 'font-lock-variable-name-face "#A4C7A9")
   (set-face-foreground 'font-lock-constant-face "#A4C7A9")
   (set-face-foreground 'font-lock-string-face "#CBB1A4")
+  ;; (spacemacs/set-state-faces 'normal "#eae5d4")
 
   ;;TSX
   (defun setup-tide-mode ()
