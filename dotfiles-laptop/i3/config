@@ -8,6 +8,7 @@
 # To get a config file with the same key positions, but for your current
 # layout, use the i3-config-wizard
 #
+set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
@@ -31,147 +32,167 @@ set $down j
 set $left h
 set $right l
 
-# use Mouse+Mod1 to drag floating windows to their wanted position
-floating_modifier Mod1
+# use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
 
 # start a terminal
-# bindsym Mod1+Return exec i3-sensible-terminal
-bindsym Mod1+Return exec termite
+# bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Return exec xfce4-terminal
 
 # kill focused window
-bindsym Mod1+Shift+q kill
+bindsym $mod+Shift+q kill
+
+# start rofi (a better, more handsome program launcher)
+# bindsym $mod+d exec "rofi -modi drun,window,run -combi-modi window,drun -show drun"
+bindsym $mod+d exec "rofi -modi drun,window -show drun"
 
 # start dmenu (a program launcher)
-# bindsym Mod1+d exec dmenu_run
-bindsym Mod1+d exec "rofi -combi-modi window,drun -show combi -display-combi ''"
+# bindsym $mod+d exec dmenu_run
 # There also is the (new) i3-dmenu-desktop which only displays applications
-# shipping a .desktop file. It is a wrapper around dmenu, so you need that
-# installed.
-# bindsym Mod1+d exec --no-startup-id i3-dmenu-desktop
+# shipping a .desktop file. It is a wrapper around dmenu, so you need that installed.
+# bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 
 # change focus
-bindsym Mod1+$left focus left
-bindsym Mod1+$down focus down
-bindsym Mod1+$up focus up
-bindsym Mod1+$right focus right
+# bindsym $mod+$left focus left
+# bindsym $mod+$down focus down
+# bindsym $mod+$up focus up
+# bindsym $mod+$right focus right
 
 # alternatively, you can use the cursor keys:
-# bindsym Mod1+Left focus left
-# bindsym Mod1+Down focus down
-# bindsym Mod1+Up focus up
-# bindsym Mod1+Right focus right
+bindsym $mod+Shift+Left focus left
+bindsym $mod+Shift+Down focus down
+bindsym $mod+Shift+Up focus up
+bindsym $mod+Shift+Right focus right
 
-# move focused window
-bindsym Mod1+Shift+$left move left
-bindsym Mod1+Shift+$down move down
-bindsym Mod1+Shift+$up move up
-bindsym Mod1+Shift+$right move right
+# Focus focused window
+bindsym $mod+$left focus left
+bindsym $mod+$down focus down
+bindsym $mod+$up focus up
+bindsym $mod+$right focus right
 
-# alternatively, you can use the cursor keys:
-bindsym Mod1+Shift+Left move left
-bindsym Mod1+Shift+Down move down
-bindsym Mod1+Shift+Up move up
-bindsym Mod1+Shift+Right move right
+# Move foused window
+bindsym $mod+Ctrl+Left move left
+bindsym $mod+Ctrl+Down move down
+bindsym $mod+Ctrl+Up move up
+bindsym $mod+Ctrl+Right move right
+
+bindsym $mod+Shift+$left move left
+bindsym $mod+Shift+$down move down
+bindsym $mod+Shift+$up move up
+bindsym $mod+Shift+$right move right
+
+# Workspace switch
+bindsym $mod+Ctrl+$left         workspace prev
+bindsym $mod+Ctrl+$right        workspace next
+
+bindsym $mod+Left         workspace prev
+bindsym $mod+Right        workspace next
+
+bindsym --whole-window $mod+Button4      workspace prev
+bindsym --whole-window $mod+Button5      workspace next
 
 # split in horizontal orientation
-bindsym Mod1+b split h
+bindsym $mod+b split h
 
 # split in vertical orientation
-bindsym Mod1+v split v
+bindsym $mod+v split v
 
 # enter fullscreen mode for the focused container
-bindsym Mod1+f fullscreen toggle
+bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
-bindsym Mod1+s layout stacking
-bindsym Mod1+w layout tabbed
-bindsym Mod1+e layout toggle split
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
-bindsym Mod1+shift+space floating toggle
+bindsym $mod+Shift+space floating toggle
 
 # change focus between tiling / floating windows
-bindsym Mod1+space focus mode_toggle
+bindsym $mod+space focus mode_toggle
 
 # focus the parent container
-bindsym Mod1+a focus parent
+bindsym $mod+a focus parent
 
 # focus the child container
-#bindsym Mod1+d focus child
+#bindsym $mod+d focus child
 
 # move the currently focused window to the scratchpad
-bindsym Mod1+Shift+minus move scratchpad
+bindsym $mod+Shift+minus move scratchpad
 
 # Show the next scratchpad window or hide the focused scratchpad window.
 # If there are multiple scratchpad windows, this command cycles through them.
-bindsym Mod1+minus scratchpad show
+bindsym $mod+minus scratchpad show
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
-# set $ws1 "1: Firefox"
-# set $ws2 "2: Spacemacs"
-# set $ws3 "3: Filemanager"
-# set $ws4 "4: Vim"
-# set $ws5 "5: Steam"
-# set $ws6 "6: 6"
-# set $ws7 "7: 7"
-# set $ws8 "8: 8"
-# set $ws9 "9: 9"
-# set $ws10 "10:  Music"
 
+# Name version
+# set $ws1 "1:  Firefox"
+# set $ws2 "2:  Spacemacs"
+# set $ws3 "3:  Terminal"
+# set $ws4 "4:  Thunar"
+# set $ws5 "5:  Steam"
+# set $ws6 "6 :  Documents"
+# set $ws7 "7 : Misc"
+# set $ws8 "8 : Misc"
+# set $ws9 "9 :  YouTube"
+# set $ws10 "10:  Music"
 
-set $ws1 "1:  "
-set $ws2 "2:  "
+# Simple version
+set $ws1 "1: "
+set $ws2 "2: "
 set $ws3 "3:  "
-set $ws4 "4:  "
-set $ws5 "5:  "
-set $ws6 "6 : Misc"
-set $ws7 "7 : Misc"
-set $ws8 "8 : Misc"
-set $ws9 "9 :  "
+set $ws4 "4:  "
+set $ws5 "5:  "
+set $ws6 "6 :  "
+set $ws7 "7 : "
+set $ws8 "8 : "
+set $ws9 "9 :  "
 set $ws10 "10:  "
 # switch to workspace
-bindsym Mod1+1 workspace $ws1
-bindsym Mod1+2 workspace $ws2
-bindsym Mod1+3 workspace $ws3
-bindsym Mod1+4 workspace $ws4
-bindsym Mod1+5 workspace $ws5
-bindsym Mod1+6 workspace $ws6
-bindsym Mod1+7 workspace $ws7
-bindsym Mod1+8 workspace $ws8
-bindsym Mod1+9 workspace $ws9
-bindsym Mod1+0 workspace $ws10
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+bindsym $mod+0 workspace $ws10
 
 # move focused container to workspace
-bindsym Mod1+Shift+1 move container to workspace $ws1
-bindsym Mod1+Shift+2 move container to workspace $ws2
-bindsym Mod1+Shift+3 move container to workspace $ws3
-bindsym Mod1+Shift+4 move container to workspace $ws4
-bindsym Mod1+Shift+5 move container to workspace $ws5
-bindsym Mod1+Shift+6 move container to workspace $ws6
-bindsym Mod1+Shift+7 move container to workspace $ws7
-bindsym Mod1+Shift+8 move container to workspace $ws8
-bindsym Mod1+Shift+9 move container to workspace $ws9
-bindsym Mod1+Shift+0 move container to workspace $ws10
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9
+bindsym $mod+Shift+0 move container to workspace $ws10
 
 # Workspace configuration
 
 # assign [class="Termite"] $ws1
 # assign [class="Firefox"] $ws1
-assign [class="Emacs"] $ws2
-assign [class="Thunar"] $ws3
+# assign [class="Emacs"] $ws2
+assign [class="Thunar"] $ws4
 assign [class="Vim"] $ws4
 assign [class="Steam"] $ws5
+assign [class="libreoffice-startcenter"] $ws6
 assign [class="Rhythmbox"] $ws10
 assign [class="Spotify"] $ws10
 
 
 # Reload the configuration file
-bindsym Mod1+Shift+c reload
+bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym Mod1+Shift+r restart
+bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
-bindsym Mod1+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -192,134 +213,108 @@ mode "resize" {
         bindsym Up          resize shrink height 10 px or 10 ppt
         bindsym Right       resize grow width 10 px or 10 ppt
 
-        # back to normal: Enter or Escape or Mod1+r
+        # back to normal: Enter or Escape or $mod+r
         bindsym Return mode "default"
         bindsym Escape mode "default"
-        bindsym Mod1+r mode "default"
+        bindsym $mod+r mode "default"
 }
 
-bindsym Mod1+r mode "resize"
+bindsym $mod+r mode "resize"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
-
 # set $bg-color            #2b303b
 # set $inactive-bg-color   #2b303b
 # set $urgent-bg-color     #8fa1b3
 # set $text-color          #FFFFFF
-
-
 # bar {
 #         status_command i3blocks -c ~/.i3/i3blocks.conf
 #         position top
 #         colors {
-# 	     	       background $bg-color
-# 	             separator #FFFFFF
-#         		   #                  border             background         text
-#     		       focused_workspace  $bg-color          $bg-color          $text-color
-# 		           inactive_workspace $inactive-bg-color $inactive-bg-color $inactive-text-color
-# 		           urgent_workspace   $urgent-bg-color   $urgent-bg-color   $text-color
+#                background $bg-color
+#                separator #FFFFFF
+#                #                  border             background         text
+#                focused_workspace  $bg-color          $bg-color          $text-color
+#                inactive_workspace $inactive-bg-color $inactive-bg-color $inactive-text-color
+#                urgent_workspace   $urgent-bg-color   $urgent-bg-color   $text-color
 #     }
 # }
 
-# Startup
-
-exec --no-startup-id setxkbmap se,us -option -option caps:escape -option grp:rshift_toggle
-exec --no-startup-id xinput set-prop 14 309 1
+# Autostart
 exec --no-startup-id start-pulseaudio-x11
+exec --no-startup-id mpd
+exec_always --no-startup-id $HOME/Scripts/polybar.sh
+exec --no-startup-id setxkbmap -layout se,us -option caps:escape -option grp:rshift_toggle
 exec --no-startup-id compton
-# exec --no-startup-id /usr/libexec/gnome-settings-daemon-localexec
-exec --no-startup-id dconf write /org/gnome/settings-daemon/plugins/cursor/active false
-exec --no-startup-id wal -R
 exec --no-startup-id nm-applet
-exec --no-startup-id blueman-applet
-# exec feh --bg-scale $HOME/Pictures/TerminalWallpapers/SpaceMountains.jpg
-exec --no-startup-id emacs-snapshot --daemon
-exec --no-startup-id redshift
-exec_always --no-startup-id ~/.i3/polybar.sh &
+exec --no-startup-id udiskie
+exec --no-startup-id unclutter --timeout 2 --ignore-scrolling
 
+exec --no-startup-id feh --bg-scale $HOME/Pictures/Wallpaper.jpg
 
+# Recommended way, but nothing seems to happen when removed
 # for_window [class="^.*"] border pixel 0
-default_border pixel 5
+default_border pixel 2
 
-gaps inner 30
+gaps inner 15
 gaps outer 0
 
 
-bindsym Mod1+Shift+x exec i3lock -i $HOME/Pictures/lockscreen.png
+# bindsym $mod+Shift+x exec i3lock
+bindsym $mod+Shift+x exec i3lock -i $HOME/Pictures/Mountains.png  -c '#000000' -o '#191d0f' -w '#572020' -l '#F5F5F5'
 
-#FNcontrols
+#FN + SoundControls
 
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5%
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5%
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle
 
-bindsym XF86AudioPlay exec playerctl play-pause
-bindsym XF86AudioNext exec playerctl next
-bindsym XF86AudioPrev exec playerctl previous
-
-bindsym XF86MonBrightnessUp exec --no-startup-id light -A 10
-bindsym XF86MonBrightnessDown exec --no-startup-id light -U 10
-
-bindsym XF86KbdBrightnessUp exec --no-startup-id light -kA 10
-bindsym XF86KbdBrightnessDown exec --no-startup-id light -kU 10
-
-
-# exec_always --no-startup-id conky -q -c /home/angel/.conky/Custom/weather
-# exec_always --no-startup-id conky -q -c /home/angel/.conky/Custom/clock_USday
-# exec --no-startup-id conky -q -c /home/angel/.conky/Custom/statspanel
-
-#Conky update for weather
-
-# exec_always curl -s wttr.in/Linköping | /home/angel/.conky/Custom/weather.py -u
-
 #Custom keybinds
 
-bindsym Mod1+n        gaps inner current plus 5
-bindsym Mod1+Shift+n  gaps inner current minus 5
+bindsym $mod+n        gaps inner current plus 5
+bindsym $mod+Shift+n  gaps inner current minus 5
 
-bindsym Mod1+m        gaps outer current plus 5
-bindsym Mod1+Shift+m  gaps outer current minus 5
+bindsym $mod+m        gaps outer current plus 5
+bindsym $mod+Shift+m  gaps outer current minus 5
 
-bindsym Mod1+z        gaps inner all set 30; gaps outer all set 0
-bindsym Mod1+Shift+z  gaps inner all set 0; gaps outer all set 0
+bindsym $mod+Shift+z        gaps inner all set 15; gaps outer all set 0
+bindsym $mod+z  gaps inner all set 0; gaps outer all set 0
 
-bindsym Mod1+Shift+Return exec rxvt -e ranger
-bindsym Mod1+t            exec rxvt -e $HOME/Documents/Scripts/wallpaper.sh
-bindsym Mod1+Shift+t      exec rxvt -e $HOME/Documents/Scripts/next_wallpaper.sh
+bindsym $mod+Shift+Return exec xfce4-terminal -e ranger
+# bindsym $mod+t            exec xfce4-terminal -e $HOME/Documents/Scripts/wallpaper.sh
+# bindsym $mod+Shift+t      exec xfce4-terminal -e $HOME/Documents/Scripts/next_wallpaper.sh
 
-bindsym Mod1+p            exec rxvt -e $HOME/Documents/Scripts/walltheme.sh
-bindsym Mod1+Shift+p      exec rxvt -e $HOME/Documents/Scripts/URxvt/start_wallpaper.sh
-
-bindsym Mod1+Left         workspace prev
-bindsym Mod1+Right        workspace next
+bindsym $mod+p            exec xfce4-terminal -e "python3 $HOME/Scripts/chooseWallpaper.py"
+# bindsym $mod+p            exec xfce4-terminal -e $HOME/Scripts/walltheme.sh
+# bindsym $mod+Shift+p      exec xfce4-terminal -e $HOME/Documents/Scripts/URxvt/start_wallpaper.sh
 
 # Numpad quickstart
 
-bindsym  Mod1+Mod2+KP_1      exec --no-startup-id firefox
-bindsym  Mod1+Mod2+KP_2      exec --no-startup-id emacs-snapshot; workspace $ws2
-# bindsym  Mod1+Mod2+KP_2      exec --no-startup-id emacs-snapshot; workspace $ws2
-bindsym  Mod1+Mod2+KP_3      exec --no-startup-id thunar; workspace $ws3
-bindsym  Mod1+Mod2+KP_4      exec --no-startup-id rxvt -e vim; workspace $ws4
-bindsym  Mod1+Mod2+KP_5      exec --no-startup-id steam; workspace $ws5
-bindsym  Mod1+Mod2+KP_8      exec --no-startup-id spotify; workspace $ws10
-bindsym  Mod1+Mod2+KP_9      exec --no-startup-id rhythmbox; workspace $ws10
-bindsym  Mod1+Mod2+KP_0      exec $HOME/Documents/Scripts/emacsscript.sh
+bindsym  $mod+Mod2+KP_1      exec firefox
+bindsym  $mod+Mod2+KP_2      exec emacs-snapshot
+bindsym  $mod+Mod2+KP_3      exec thunar; workspace $ws4
+# bindsym  $mod+Mod2+KP_4      exec xfce4-terminal -e vim; workspace $ws4
+# bindsym  $mod+Mod2+KP_5      exec steam; workspace $ws5
+# bindsym  $mod+Mod2+KP_6      exec libreoffice; workspace $ws6
+# bindsym  $mod+Mod2+KP_7      exec /opt/Postman/Postman
+bindsym  $mod+Mod2+KP_8      exec --no-startup-id spotify; workspace $ws10
+bindsym  $mod+Mod2+KP_9      exec $HOME/Scripts/ncmpcpp.sh
+bindsym  $mod+Mod2+KP_0      exec $HOME/Scripts/emacsscript.sh
+# bindsym  $mod+Mod2+KP_0      exec emacsclient -c
 
 for_window [class="Spotify"] move to workspace $ws10
-
 
 # Set colors from Xresources
 # Change 'color7' and 'color2' to whatever colors you want i3 to use
 # from the generated scheme.
 # NOTE: The '#f0f0f0' in the lines below is the color i3 will use if
 # it fails to get colors from Xresources.
-set_from_resource $fg i3wm.color7 #00ff00
-set_from_resource $bg i3wm.color0 #f0f0f0
+set_from_resource $fg i3wm.color7 #eae5d4
+set_from_resource $bg i3wm.color0 #1b283c
 
 # # class               border  backgr. text indicator child_border
 client.focused          $bg     $fg     $bg  $fg       $fg
-client.focused_inactive $bg     $bg     $fg  $bg       $bg
+client.focused_inactive $bg     $fg     $bg  $bg       $bg
 client.unfocused        $bg     $bg     $fg  $bg       $bg
 client.urgent           $bg     $bg     $fg  $bg       $bg
 client.placeholder      $bg     $bg     $fg  $bg       $bg

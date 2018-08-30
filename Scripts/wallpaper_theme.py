@@ -30,4 +30,4 @@ if __name__ == '__main__':
         else:
             print('Not a valid choice, please try again or (q) for exit')
 
-    call([home + '/Documents/Scripts/wallpaper_theme.sh', chosenWallpaper])
+    call(["feh --bg-scale ", chosenWallpaper])
