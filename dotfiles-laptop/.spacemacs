@@ -410,7 +410,7 @@ you should place your code here."
   (setq sublimity-scroll-weight 10
         sublimity-scroll-drift-length 5)
   (google-this-mode 1)
-  (spacemacs/toggle-camel-case-motion-globally-on)
+  ;; (spacemacs/toggle-camel-case-motion-globally-on)
   (spacemacs/toggle-which-key-off)
   (add-to-list 'auto-mode-alist '("\\.js\\'" . rjsx-mode))
   (spacemacs/toggle-highlight-indentation-current-column-on)
@@ -440,6 +440,7 @@ you should place your code here."
   (set-face-foreground 'font-lock-variable-name-face "#A4C7A9")
   (set-face-foreground 'font-lock-constant-face "#A4C7A9")
   (set-face-foreground 'font-lock-string-face "#CBB1A4")
+  (set-face-foreground 'font-lock-type-face "#eae5d4")
   ;; (spacemacs/set-state-faces 'normal "#eae5d4")
   (add-hook 'after-make-frame-functions 'spacemacs/enable-transparency)
   (setq neo-theme (if (display-graphic-p) 'icons 'arrow))

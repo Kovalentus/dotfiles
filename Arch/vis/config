@@ -36,7 +36,7 @@ audio.stereo.enabled=false
 
 ##Configures what character the spectrum visualizer will use. Specifying a space (e.g " ") means the
 ##background will be colored instead of the character. Defaults to " ".
-#visualizer.spectrum.character=#
+# visualizer.spectrum.character=#
 
 ##Spectrum bar width. Defaults to 2.
 visualizer.spectrum.bar.width=1
@@ -54,13 +54,13 @@ visualizer.spectrum.falloff.mode=fill
 
 ##Configures how fast the falloff character falls. This is an exponential falloff so values usually look
 ##best 0.9+ and small changes in this value can have a large effect. Defaults to 0.95
-visualizer.spectrum.falloff.weight=2.95
+visualizer.spectrum.falloff.weight=0.95
 
 ##Margins in percent of total screen for spectrum visualizer. All margins default to 0
-#visualizer.spectrum.top.margin=0.30
-#visualizer.spectrum.bottom.margin=0.10
-#visualizer.spectrum.right.margin=0.10
-#visualizer.spectrum.left.margin=0.10
+# visualizer.spectrum.top.margin=0.05
+# visualizer.spectrum.bottom.margin=0.10
+# visualizer.spectrum.right.margin=0.10
+# visualizer.spectrum.left.margin=0.10
 
 ##Reverses the direction of the spectrum so that high freqs are first and low freqs last. Defaults to false.
 #visualizer.spectrum.reversed=false
