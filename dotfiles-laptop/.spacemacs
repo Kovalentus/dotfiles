@@ -341,6 +341,7 @@ executes.
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
   (server-start)
+  (setq org-agenda-files '("~/org"))
   )
 
 (defun dotspacemacs/user-config ()
@@ -428,6 +429,10 @@ you should place your code here."
 
   (require 'color)
   (spacemacs/enable-transparency)
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((ditaa . t)))
+  (setq org-ditaa-jar-path "/usr/share/java/ditaa/ditaa-0.11.jar")
 
   (global-hl-line-mode nil)
   ;; Needs to be last for some reason
@@ -441,9 +446,18 @@ you should place your code here."
   (set-face-foreground 'font-lock-constant-face "#A4C7A9")
   (set-face-foreground 'font-lock-string-face "#CBB1A4")
   (set-face-foreground 'font-lock-type-face "#eae5d4")
+  ;; ORG faces
+  (set-face-foreground 'org-todo "DarkOrange")
+  (set-face-foreground 'outline-2 "LightGoldenRod")
   ;; (spacemacs/set-state-faces 'normal "#eae5d4")
   (add-hook 'after-make-frame-functions 'spacemacs/enable-transparency)
+  ;; Neotree
+  (require 'neotree)
   (setq neo-theme (if (display-graphic-p) 'icons 'arrow))
+  (setq neo-smart-open t)
+  (setq projectile-switch-project-action 'neotree-projectile-action)
+  (global-set-key [f8] 'neotree-find-project-root)
+
 
   ;;TSX
   (defun setup-tide-mode ()
