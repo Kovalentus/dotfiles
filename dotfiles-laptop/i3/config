@@ -221,25 +221,6 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-# Start i3bar to display a workspace bar (plus the system information i3status
-# finds out, if available)
-# set $bg-color            #2b303b
-# set $inactive-bg-color   #2b303b
-# set $urgent-bg-color     #8fa1b3
-# set $text-color          #FFFFFF
-# bar {
-#         status_command i3blocks -c ~/.i3/i3blocks.conf
-#         position top
-#         colors {
-#                background $bg-color
-#                separator #FFFFFF
-#                #                  border             background         text
-#                focused_workspace  $bg-color          $bg-color          $text-color
-#                inactive_workspace $inactive-bg-color $inactive-bg-color $inactive-text-color
-#                urgent_workspace   $urgent-bg-color   $urgent-bg-color   $text-color
-#     }
-# }
-
 # Autostart
 exec --no-startup-id start-pulseaudio-x11
 exec --no-startup-id mpd
